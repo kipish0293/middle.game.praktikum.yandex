@@ -1,18 +1,31 @@
-import { useEffect } from 'react'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+import {
+  ErrorPage,
+  ForumPage,
+  GamePage,
+  LeaderboardPage,
+  LoginPage,
+  MainPage,
+  ProfilePage,
+  RegisterPage
+} from '@app/pages';
 
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
-}
+import './App.css';
 
-export default App
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/forum" element={<ForumPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
