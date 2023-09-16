@@ -1,7 +1,7 @@
 {
   "singleQuote": true,
-  "trailingComma": "none",
-  "endOfLine": "auto",
+  "trailingComma": "all",
+  "endOfLine": "lf",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "singleAttributePerLine": false,

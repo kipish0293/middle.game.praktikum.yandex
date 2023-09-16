@@ -1,5 +1,5 @@
 // type Props = {};
 
-export const LoginPage = () => {
+export function LoginPage() {
   return <div>Login page works!</div>;
-};
+}

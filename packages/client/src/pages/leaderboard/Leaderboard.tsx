@@ -1,5 +1,5 @@
 // type Props = {};
 
-export const LeaderboardPage = () => {
+export function LeaderboardPage() {
   return <div>Leaderboard page works!</div>;
-};
+}

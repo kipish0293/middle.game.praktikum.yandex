@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@app/hooks';
 
 // type Props = {};
 
-export const MainPage = () => {
+export function MainPage() {
   const dispatch = useAppDispatch();
   const { counter } = useAppSelector((store) => store.counter);
 
@@ -33,10 +33,14 @@ export const MainPage = () => {
       </ul>
 
       <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-        <button onClick={() => dispatch(decrement())}>-</button>
+        <button type="button" onClick={() => dispatch(decrement())}>
+          -
+        </button>
         {counter}
-        <button onClick={() => dispatch(increment())}>+</button>
+        <button type="button" onClick={() => dispatch(increment())}>
+          +
+        </button>
       </div>
     </nav>
   );
-};
+}

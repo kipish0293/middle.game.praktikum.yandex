@@ -8,12 +8,12 @@ import {
   LoginPage,
   MainPage,
   ProfilePage,
-  RegisterPage
+  RegisterPage,
 } from '@app/pages';
 
 import './App.css';
 
-export const App = () => {
+export function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,4 +28,4 @@ export const App = () => {
       </Routes>
     </BrowserRouter>
   );
-};
+}

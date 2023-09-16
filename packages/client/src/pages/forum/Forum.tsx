@@ -1,5 +1,5 @@
 // type Props = {};
 
-export const ForumPage = () => {
+export function ForumPage() {
   return <div>Forum page works!</div>;
-};
+}

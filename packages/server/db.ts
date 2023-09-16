@@ -19,8 +19,8 @@ export const createClientAndConnect = async (): Promise<Client | null> => {
     client.end();
 
     return client;
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 
   return null;

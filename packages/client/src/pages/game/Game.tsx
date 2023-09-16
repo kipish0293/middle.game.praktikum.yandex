@@ -1,5 +1,5 @@
 // type Props = {};
 
-export const GamePage = () => {
+export function GamePage() {
   return <div>Game page works!</div>;
-};
+}
