@@ -14,11 +14,13 @@ import {
   RegisterPage,
 } from '@app/pages';
 
+import { theme } from './chakraTheme';
+
 import './App.css';
 
 export function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />

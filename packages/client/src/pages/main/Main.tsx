@@ -1,8 +1,8 @@
-import { Link as ReactRouterLink } from 'react-router-dom';
-import { ListItem, Button, Wrap, Center, Link as ChakraLink, List, Box } from '@chakra-ui/react';
+import { ListItem, Button, Wrap, Center, List, Box } from '@chakra-ui/react';
 
 import { decrement, increment } from '@app/store';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { Link } from '@app/components';
 
 import { TestIcon } from '../../components/icons/TestIcon';
 
@@ -20,40 +20,29 @@ export function MainPage() {
       <Box as="nav" fontFamily="Ubuntu Mono" textAlign="center" padding={3} marginBottom={2}>
         <List flexDirection="column">
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/login">
-              Login Page
-            </ChakraLink>
+            <Link to="/login">Login Page</Link>
           </ListItem>
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/register">
-              Register Page
-            </ChakraLink>
+            <Link to="/register">Register Page</Link>
           </ListItem>
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/game">
-              Game Page
-            </ChakraLink>
+            <Link to="/game">Game Page</Link>
           </ListItem>
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/profile">
-              Profile Page
-            </ChakraLink>
+            <Link to="/profile">Profile Page</Link>
           </ListItem>
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/forum">
-              Forum Page
-            </ChakraLink>
+            <Link to="/forum">Forum Page</Link>
           </ListItem>
           <ListItem>
-            <ChakraLink as={ReactRouterLink} to="/leaderboard">
-              Leaderboard Page
-            </ChakraLink>
+            <Link to="/leaderboard">Leaderboard Page</Link>
           </ListItem>
         </List>
       </Box>
 
       <Wrap paddingLeft={2}>
         <Button
+          bg="blue"
           colorScheme="blue"
           size="sm"
           color="white"
@@ -64,6 +53,7 @@ export function MainPage() {
         </Button>
         <Center>{counter}</Center>
         <Button
+          bg="blue"
           colorScheme="blue"
           size="sm"
           color="white"
