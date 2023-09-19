@@ -1,12 +1,3 @@
-const {
-  rules: { 'order/properties-order': recessOrder },
-} = require('stylelint-config-recess-order');
-
-const recessOrderWithEmptyLinesBetween = recessOrder.map((block) => ({
-  ...block,
-  emptyLineBefore: 'always',
-}));
-
 module.exports = {
   extends: [
     'stylelint-config-recommended-scss',
@@ -15,7 +6,6 @@ module.exports = {
   ],
   plugins: ['stylelint-scss'],
   rules: {
-    'order/properties-order': recessOrderWithEmptyLinesBetween,
     'number-leading-zero': 'never',
     'property-no-unknown': [
       true,

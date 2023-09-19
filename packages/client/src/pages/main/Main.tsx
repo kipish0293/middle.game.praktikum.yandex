@@ -1,12 +1,8 @@
-import { ListItem, Button, Wrap, Center, List, Box } from '@chakra-ui/react';
+import { Box, Button, Center, List, ListItem, Wrap } from '@chakra-ui/react';
 
-import { decrement, increment } from '@app/store';
+import { Link, TestIcon } from '@app/components';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { Link } from '@app/components';
-
-import { TestIcon } from '../../components/icons/TestIcon';
-
-// type Props = {};
+import { decrement, increment } from '@app/store';
 
 export function MainPage() {
   const dispatch = useAppDispatch();

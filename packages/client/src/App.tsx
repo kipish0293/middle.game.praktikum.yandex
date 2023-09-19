@@ -4,7 +4,7 @@ import '@fontsource/ubuntu-mono/latin.css';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import {
-  ErrorPage,
+  NotFoundPage,
   ForumPage,
   GamePage,
   LeaderboardPage,
@@ -30,7 +30,7 @@ export function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/forum" element={<ForumPage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
