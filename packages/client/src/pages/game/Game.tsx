@@ -1,5 +1,11 @@
 // type Props = {};
 
+import EngineCanvas from '../../components/EngineCanvas';
+
 export function GamePage() {
-  return <div>Game page works!</div>;
+  return (
+    <div>
+      <EngineCanvas />
+    </div>
+  );
 }

@@ -87,6 +87,10 @@
         "groups": ["builtin", "external", "internal", "parent", ["sibling", "index"]],
         "pathGroupsExcludedImportTypes": ["builtin"]
       }
-    ]
+    ],
+    "no-underscore-dangle": "off",
+    "no-restricted-syntax": "off",
+    "class-methods-use-this": "off",
+    "no-restricted-exports": "off"
   }
 }
