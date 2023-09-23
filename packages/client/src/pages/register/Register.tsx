@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Image, SimpleGrid } from '@chakra-ui/react';
+import { useState } from 'react';
 
-import { SignUpForm, Link } from '@app/components';
+import { ErrorBoundary, Link, SignUpForm } from '@app/components';
 
 import logo from '../../assets/images/logo.jpg';
 
@@ -13,9 +14,19 @@ const registerTexts = {
 };
 
 export function RegisterPage() {
+  const [imageLoadError, setImageLoadError] = useState(false);
+
   return (
     <SimpleGrid columns={2} spacingX={12} p={12} minChildWidth="lg" h="100%" w="100%" maxW="1800px">
-      <Image src={logo} width="xl" minWidth="lg" alt="Game logo" />
+      <ErrorBoundary errorDeploy={imageLoadError} componentName="Register Logo">
+        <Image
+          src={logo}
+          onError={() => setImageLoadError(true)}
+          width="xl"
+          minWidth="lg"
+          alt="Game logo"
+        />
+      </ErrorBoundary>
       <Box width="xl">
         <Heading as="h1" mb="5" size="4xl">
           {RegisterText.heading}
