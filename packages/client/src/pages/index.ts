@@ -6,3 +6,4 @@ export { MainPage } from './main/Main';
 export { NotFoundPage } from './notFound/NotFound';
 export { ProfilePage } from './profile/Profile';
 export { RegisterPage } from './register/Register';
+export { ServiceUnavailable } from './serviceUnavailable/ServiceUnavailable';

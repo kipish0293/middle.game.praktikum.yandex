@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import '@fontsource/ubuntu-mono/cyrillic.css';
 import '@fontsource/ubuntu-mono/latin.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { ErrorBoundary } from '@app/components';
 import {
@@ -13,6 +13,7 @@ import {
   NotFoundPage,
   ProfilePage,
   RegisterPage,
+  ServiceUnavailable,
 } from '@app/pages';
 
 import { theme } from './chakraTheme';
@@ -32,6 +33,7 @@ export function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/forum" element={<ForumPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/service-unavailable" element={<ServiceUnavailable />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </ErrorBoundary>

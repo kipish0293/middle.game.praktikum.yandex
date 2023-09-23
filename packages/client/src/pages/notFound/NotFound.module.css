@@ -1,11 +1,11 @@
-.not-found__go-back-link {
+.link {
   display: flex;
   gap: 10px;
   align-items: center;
   text-transform: uppercase;
 }
 
-.not-found__title {
+.title {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@
   text-transform: uppercase;
 }
 
-.not-found__code_central {
+.code_central {
   &::first-letter {
     vertical-align: sub;
   }

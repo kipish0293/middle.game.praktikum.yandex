@@ -4,11 +4,11 @@ import { GoBackIcon, Link } from '@app/components';
 
 import Robot from '../../assets/images/robot.png';
 
-import styles from './NotFound.module.css';
+import styles from './ServiceUnavailable.module.css';
 
 const GO_HOME_TEMPLATE = 'Go home';
 
-export function NotFoundPage() {
+export function ServiceUnavailable() {
   return (
     <Center h="100vh">
       <Flex flexDirection="column" alignItems="center">
@@ -16,9 +16,9 @@ export function NotFoundPage() {
           <Heading as="h1" size="4xl" className={styles.title} fontWeight={400}>
             ERROR
             <Flex>
-              <Text>4</Text>
+              <Text>5</Text>
               <Text className={styles.code_central}>0</Text>
-              <Text>4</Text>
+              <Text>3</Text>
             </Flex>
           </Heading>
           <Box boxSize="md" position="relative">
@@ -26,7 +26,7 @@ export function NotFoundPage() {
           </Box>
         </Flex>
         <Flex mb={20}>
-          <Button variant="link">
+          <Button variant="link" className="service-unavailable__go-back-button">
             <Link
               className={styles.link}
               fontWeight="normal"
