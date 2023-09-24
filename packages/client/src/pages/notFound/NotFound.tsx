@@ -23,12 +23,6 @@ export function NotFoundPage() {
           </Heading>
           <Box boxSize="md" position="relative">
             <Image src={Robot} alt="ERROR ROBOT" align="center" />
-            <Button variant="link" className="not-found__go-back-button">
-              <Link className="not-found__go-back-link" to="/">
-                <Icons.GoBackIcon />
-                Go back
-              </Link>
-            </Button>
           </Box>
         </Flex>
         <Flex mb={20}>

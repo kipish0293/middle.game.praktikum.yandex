@@ -26,7 +26,7 @@ export function ServiceUnavailable() {
           </Box>
         </Flex>
         <Flex mb={20}>
-          <Button variant="link" className="service-unavailable__go-back-button">
+          <Button variant="link">
             <Link
               className={styles.link}
               fontWeight="normal"

@@ -13,6 +13,7 @@ import {
   NotFoundPage,
   ProfilePage,
   RegisterPage,
+  ServiceUnavailable,
 } from '@app/pages';
 
 import './App.css';
@@ -37,6 +38,7 @@ export function App() {
                 <Route path=":id" element={<ForumTopic />} />
               </Route>
               <Route path="leaderboard" element={<LeaderboardPage />} />
+              <Route path="service-unavailable" element={<ServiceUnavailable />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
