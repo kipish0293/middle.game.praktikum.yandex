@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Heading, Image, Text } from '@chakra-ui/react';
 
-import { GoBackIcon, Link } from '@app/components';
+import { Icons, Link } from '@app/components';
 
 import Robot from '../../assets/images/robot.png';
 
@@ -35,7 +35,7 @@ export function ServiceUnavailable() {
               color="black"
               to="/"
             >
-              <GoBackIcon />
+              <Icons.GoBackIcon />
               {GO_HOME_TEMPLATE}
             </Link>
           </Button>

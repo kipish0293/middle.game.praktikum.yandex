@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Heading, Image, Text } from '@chakra-ui/react';
 
-import { GoBackIcon, Link } from '@app/components';
+import { Icons, Link } from '@app/components';
 
 import Robot from '../../assets/images/robot.png';
 
@@ -23,6 +23,12 @@ export function NotFoundPage() {
           </Heading>
           <Box boxSize="md" position="relative">
             <Image src={Robot} alt="ERROR ROBOT" align="center" />
+            <Button variant="link" className="not-found__go-back-button">
+              <Link className="not-found__go-back-link" to="/">
+                <Icons.GoBackIcon />
+                Go back
+              </Link>
+            </Button>
           </Box>
         </Flex>
         <Flex mb={20}>
@@ -35,7 +41,7 @@ export function NotFoundPage() {
               color="black"
               to="/"
             >
-              <GoBackIcon />
+              <Icons.GoBackIcon />
               {GO_HOME_TEMPLATE}
             </Link>
           </Button>

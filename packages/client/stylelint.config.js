@@ -6,7 +6,7 @@ module.exports = {
   ],
   plugins: ['stylelint-scss'],
   rules: {
-    'number-leading-zero': 'never',
+    // 'number-leading-zero': 'never',
     'property-no-unknown': [
       true,
       {

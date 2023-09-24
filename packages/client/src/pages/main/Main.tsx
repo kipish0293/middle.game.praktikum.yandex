@@ -1,6 +1,6 @@
 import { Box, Button, Center, List, ListItem, Wrap } from '@chakra-ui/react';
 
-import { Link, TestIcon } from '@app/components';
+import { Link } from '@app/components';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { decrement, increment } from '@app/store';
 
@@ -10,9 +10,6 @@ export function MainPage() {
 
   return (
     <Center flexDirection="column" alignItems="center" justifyContent="center" padding={10}>
-      <Box>
-        <TestIcon boxSize={20} />
-      </Box>
       <Box as="nav" fontFamily="Ubuntu Mono" textAlign="center" padding={3} marginBottom={2}>
         <List flexDirection="column">
           <ListItem>
