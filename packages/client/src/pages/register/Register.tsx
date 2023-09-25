@@ -1,17 +1,15 @@
 import { Box, Flex, Heading, Image, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { ROUTES } from '@app/types';
 import { ErrorBoundary, Link, SignUpForm } from '@app/components';
 
 import logo from '../../assets/images/logo.jpg';
 
 const enum RegisterText {
   heading = 'New player',
+  link = 'Already have account',
 }
-
-const registerTexts = {
-  link: 'Already have account',
-};
 
 export function RegisterPage() {
   const [imageLoadError, setImageLoadError] = useState(false);
@@ -31,11 +29,11 @@ export function RegisterPage() {
         <Heading as="h1" mb="5" size="4xl">
           {RegisterText.heading}
         </Heading>
-        <Box width="2xl" height="3xl" bg="lightBlue" borderRadius={5} p={10} mb={8}>
-          <Flex gap={8} direction="column">
+        <Box width="1.5xl" height="3.5xl" bg="lightBlue" borderRadius={5} p={10}>
+          <Flex gap={2} h="100%" justifyContent="space-between" direction="column">
             <SignUpForm />
-            <Link to="/login" textAlign="center" fontSize="xl">
-              {registerTexts.link.toUpperCase()}
+            <Link to={ROUTES.LOGIN} textAlign="center" fontSize="xl">
+              {RegisterText.link.toUpperCase()}
             </Link>
           </Flex>
         </Box>

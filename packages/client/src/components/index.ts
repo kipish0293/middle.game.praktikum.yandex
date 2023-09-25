@@ -9,3 +9,5 @@ export { SignUpForm } from './SignUpForm/SignUpForm';
 export { GoBackIcon } from './icons/GoBackIcon';
 export { EngineCanvas } from './EngineCanvas/EngineCanvas';
 export { Icons } from './icons';
+export { Form } from './Form/Form';
+export { LoginForm } from './LoginForm/LoginForm';

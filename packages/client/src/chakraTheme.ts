@@ -25,7 +25,8 @@ export const theme = extendTheme({
     blue: '#4299E1',
   },
   sizes: {
+    '1.5xl': '39rem',
     '2xl': '40.5rem',
-    '3xl': '43rem',
+    '3.5xl': '46.5rem',
   },
 });

@@ -46,6 +46,7 @@ export default defineConfig({
       },
       { find: '@app/store', replacement: fileURLToPath(new URL('./src/store', import.meta.url)) },
       { find: '@app/types', replacement: fileURLToPath(new URL('./src/types', import.meta.url)) },
+      { find: '@app/const', replacement: fileURLToPath(new URL('./src/const', import.meta.url)) },
       {
         find: '@app/utils',
         replacement: fileURLToPath(new URL('./src/utils', import.meta.url)),

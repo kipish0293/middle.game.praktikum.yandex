@@ -1,4 +1,6 @@
-import { Box, FormErrorMessage, Input } from '@chakra-ui/react';
+/* eslint-disable react/jsx-props-no-spreading */
+import { Box, FormErrorMessage, forwardRef, Input } from '@chakra-ui/react';
+import { omit } from 'lodash';
 import { ChangeEvent } from 'react';
 
 type FormInputProperties = {
@@ -9,16 +11,18 @@ type FormInputProperties = {
   type?: string;
   errorMessage?: string;
   onChange?: (event: ChangeEvent) => void;
+  mb: number;
 };
 
-export function FormInput(properties: FormInputProperties) {
-  const { name, placeholder, isInvalid, type, errorMessage, onChange } = properties;
+export const FormInput = forwardRef((properties: FormInputProperties, reference) => {
+  const { placeholder = '', errorMessage = '', mb } = properties;
+  const inputProperties = omit(properties, ['errorMessage']);
   return (
-    <Box mb={8}>
+    <Box mb={mb}>
       <Input
-        type={type}
-        name={name}
-        isInvalid={isInvalid}
+        {...inputProperties}
+        ref={reference}
+        mb={0}
         placeholder={placeholder.toUpperCase()}
         size="lg"
         width="lg"
@@ -34,9 +38,10 @@ export function FormInput(properties: FormInputProperties) {
         _placeholder={{
           textAlign: 'center',
         }}
-        onChange={onChange}
       />
-      <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      <FormErrorMessage fontSize="xs" mt={1} justifyContent="center" w="100%">
+        {errorMessage}
+      </FormErrorMessage>
     </Box>
   );
-}
+});

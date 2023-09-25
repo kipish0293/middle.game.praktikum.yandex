@@ -3,6 +3,7 @@ import { Box, Button, Center, List, ListItem, Wrap } from '@chakra-ui/react';
 import { Link } from '@app/components';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { decrement, increment } from '@app/store';
+import { ROUTES } from '@app/types';
 
 export function MainPage() {
   const dispatch = useAppDispatch();
@@ -13,22 +14,22 @@ export function MainPage() {
       <Box as="nav" fontFamily="Ubuntu Mono" textAlign="center" padding={3} marginBottom={2}>
         <List flexDirection="column">
           <ListItem>
-            <Link to="/login">Login Page</Link>
+            <Link to={ROUTES.LOGIN}>Login Page</Link>
           </ListItem>
           <ListItem>
-            <Link to="/register">Register Page</Link>
+            <Link to={ROUTES.REGISTER}>Register Page</Link>
           </ListItem>
           <ListItem>
-            <Link to="/game">Game Page</Link>
+            <Link to={ROUTES.GAME}>Game Page</Link>
           </ListItem>
           <ListItem>
-            <Link to="/profile">Profile Page</Link>
+            <Link to={ROUTES.PROFILE}>Profile Page</Link>
           </ListItem>
           <ListItem>
-            <Link to="/forum">Forum Page</Link>
+            <Link to={ROUTES.FORUM}>Forum Page</Link>
           </ListItem>
           <ListItem>
-            <Link to="/leaderboard">Leaderboard Page</Link>
+            <Link to={ROUTES.LEADER_BOARD}>Leaderboard Page</Link>
           </ListItem>
         </List>
       </Box>
