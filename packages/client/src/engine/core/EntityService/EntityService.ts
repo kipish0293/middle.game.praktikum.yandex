@@ -1,6 +1,6 @@
-import AbstractEntity from '../AbstractEntity';
+import { AbstractEntity } from '../AbstractEntity/AbstractEntity';
 
-export default class EntityService {
+export class EntityService {
   private static _instance: EntityService;
 
   public readonly entities: AbstractEntity[] = [];

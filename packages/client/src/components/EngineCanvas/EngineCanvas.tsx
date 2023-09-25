@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import Game from '../../engine/core/Game';
-import IntroScene from '../../engine/scenes/InroScene';
+import { Game, IntroScene } from '../../engine';
 
-function EngineCanvas() {
+export function EngineCanvas() {
   const reference = useRef<HTMLCanvasElement>(null);
   const [game, setGame] = useState<Game | undefined>();
 
@@ -22,5 +21,3 @@ function EngineCanvas() {
 
   return <canvas ref={reference} />;
 }
-
-export default EngineCanvas;

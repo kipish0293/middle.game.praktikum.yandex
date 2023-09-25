@@ -50,6 +50,10 @@ export default defineConfig({
         find: '@app/utils',
         replacement: fileURLToPath(new URL('./src/utils', import.meta.url)),
       },
+      {
+        find: '@app/engine',
+        replacement: fileURLToPath(new URL('./src/engine', import.meta.url)),
+      },
     ],
   },
 });

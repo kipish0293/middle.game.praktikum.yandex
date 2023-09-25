@@ -28,7 +28,8 @@
       "@app/services": ["services"],
       "@app/store": ["store"],
       "@app/types": ["types"],
-      "@app/utils": ["utils"]
+      "@app/utils": ["utils"],
+      "@app/engine": ["engine"]
     }
   },
   "include": ["src/**/*"],

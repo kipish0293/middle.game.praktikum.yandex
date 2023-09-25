@@ -1,7 +1,7 @@
-import AbstractEntity from '../AbstractEntity';
-import EntityService from '../EntityService';
+import { AbstractEntity } from '../AbstractEntity/AbstractEntity';
+import { EntityService } from '../EntityService/EntityService';
 
-export default abstract class AbstractScene {
+export abstract class AbstractScene {
   protected readonly entityService = EntityService.getInstance();
 
   public abstract update(deltaTime: number): void;

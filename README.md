@@ -77,4 +77,4 @@
 
 ## Документация по игровому движку
 
-[Ссылка]()
+[Ссылка](packages/client/src/engine/README.md)

@@ -1,8 +1,8 @@
-import AbstractScene from '../AbstractScene';
-import InputService from '../InputService';
-import EntityService from '../EntityService';
+import { AbstractScene } from '../AbstractScene/AbstractScene';
+import { InputService } from '../InputService/InputService';
+import { EntityService } from '../EntityService/EntityService';
 
-export default class Game {
+export class Game {
   private readonly _canvas: HTMLCanvasElement;
 
   private readonly _context: CanvasRenderingContext2D;

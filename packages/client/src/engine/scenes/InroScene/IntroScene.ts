@@ -1,8 +1,8 @@
-import AbstractScene from '../../core/AbstractScene';
-import SampleEntity from '../../entities/SampleEntity';
-import SampleObstacle from '../../entities/SampleObstacle';
+import { AbstractScene } from '../../core/AbstractScene/AbstractScene';
+import { SampleEntity } from '../../entities/SampleEntity/SampleEntity';
+import { SampleObstacle } from '../../entities/SampleObstacle/SampleObstacle';
 
-export default class IntroScene extends AbstractScene {
+export class IntroScene extends AbstractScene {
   public sampleEntity = new SampleEntity();
 
   public obstacles = [new SampleObstacle()];

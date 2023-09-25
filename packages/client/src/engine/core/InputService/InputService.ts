@@ -1,6 +1,6 @@
 import type { KeyCode, InputKeysState } from './types';
 
-export default class InputService {
+export class InputService {
   public readonly inputKeysState: Partial<InputKeysState> = {};
 
   private static _instance?: InputService;
