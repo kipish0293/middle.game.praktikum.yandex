@@ -23,6 +23,7 @@ export const theme = extendTheme({
   colors: {
     lightBlue: '#CBFDFD',
     blue: '#4299E1',
+    coral: '#FE6060',
   },
   sizes: {
     '1.5xl': '39rem',

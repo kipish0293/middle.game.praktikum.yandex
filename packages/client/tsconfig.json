@@ -30,7 +30,6 @@
       "@app/types": ["types"],
       "@app/utils": ["utils"],
       "@app/const": ["const"],
-      "@app/utils": ["utils"],
       "@app/engine": ["engine"]
     }
   },
