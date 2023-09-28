@@ -14,6 +14,7 @@ import {
   ProfilePage,
   RegisterPage,
   ServiceUnavailable,
+  GameOverPage,
 } from '@app/pages';
 
 import './App.css';
@@ -39,6 +40,7 @@ export function App() {
               </Route>
               <Route path="leaderboard" element={<LeaderboardPage />} />
               <Route path="service-unavailable" element={<ServiceUnavailable />} />
+              <Route path="game-over" element={<GameOverPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

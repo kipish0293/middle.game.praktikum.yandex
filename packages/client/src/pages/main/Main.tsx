@@ -1,62 +1,66 @@
-import { Box, Button, Center, List, ListItem, Wrap } from '@chakra-ui/react';
+import { Box, Button, Center } from '@chakra-ui/react';
 
-import { Link } from '@app/components';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { decrement, increment } from '@app/store';
-import { ROUTES } from '@app/types';
+import { BACKGROUND_CONST } from '@app/utils';
+import { Icons, Link } from '@app/components';
+import { Routes, TEXT } from '@app/const';
+
+import styles from './Main.module.css';
 
 export function MainPage() {
-  const dispatch = useAppDispatch();
-  const { counter } = useAppSelector((store) => store.counter);
-
   return (
-    <Center flexDirection="column" alignItems="center" justifyContent="center" padding={10}>
-      <Box as="nav" fontFamily="Ubuntu Mono" textAlign="center" padding={3} marginBottom={2}>
-        <List flexDirection="column">
-          <ListItem>
-            <Link to={ROUTES.LOGIN}>Login Page</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={ROUTES.REGISTER}>Register Page</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={ROUTES.GAME}>Game Page</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={ROUTES.PROFILE}>Profile Page</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={ROUTES.FORUM}>Forum Page</Link>
-          </ListItem>
-          <ListItem>
-            <Link to={ROUTES.LEADER_BOARD}>Leaderboard Page</Link>
-          </ListItem>
-        </List>
+    <Center h="100vh">
+      <Box bg={BACKGROUND_CONST} borderRadius="8px" w="50%">
+        <Box as="nav" className={styles.nav} p="40px">
+          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+            <Link
+              to={Routes.GAME}
+              color="black"
+              className={styles['nav-button__link']}
+              fontSize={48}
+              fontWeight="normal"
+            >
+              <Icons.ConsoleIcon />
+              {TEXT.gameLink}
+            </Link>
+          </Button>
+          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+            <Link
+              to={Routes.LEADER_BOARD}
+              color="black"
+              className={styles['nav-button__link']}
+              fontSize={48}
+              fontWeight="normal"
+            >
+              <Icons.CupIcon />
+              {TEXT.leadersLink}
+            </Link>
+          </Button>
+          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+            <Link
+              to={Routes.FORUM}
+              color="black"
+              className={styles['nav-button__link']}
+              fontSize={48}
+              fontWeight="normal"
+            >
+              <Icons.ForumIcon />
+              {TEXT.forumLink}
+            </Link>
+          </Button>
+          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+            <Link
+              to={Routes.PROFILE}
+              color="black"
+              className={styles['nav-button__link']}
+              fontSize={48}
+              fontWeight="normal"
+            >
+              <Icons.PlayerIcon />
+              {TEXT.playerLink}
+            </Link>
+          </Button>
+        </Box>
       </Box>
-
-      <Wrap paddingLeft={2}>
-        <Button
-          bg="blue"
-          colorScheme="blue"
-          size="sm"
-          color="white"
-          type="button"
-          onClick={() => dispatch(decrement())}
-        >
-          -
-        </Button>
-        <Center>{counter}</Center>
-        <Button
-          bg="blue"
-          colorScheme="blue"
-          size="sm"
-          color="white"
-          type="button"
-          onClick={() => dispatch(increment())}
-        >
-          +
-        </Button>
-      </Wrap>
     </Center>
   );
 }

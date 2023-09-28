@@ -1,4 +1,4 @@
-export const enum ROUTES {
+export const enum Routes {
   ROOT = '/',
   LOGIN = '/login',
   REGISTER = '/register',

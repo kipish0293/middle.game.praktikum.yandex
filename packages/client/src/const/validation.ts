@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { pick } from 'lodash';
 
-import { FieldName } from '@app/types';
+import { FieldName } from '@app/const';
 
 const noDigits = /\D$/;
 const latinOrCyrillic = /[\w*ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё]$/;

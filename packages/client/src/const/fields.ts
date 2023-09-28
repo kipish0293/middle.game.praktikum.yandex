@@ -1,4 +1,6 @@
-import { Input, FieldName } from '@app/types';
+import { Input } from '@app/types';
+
+import { FieldName } from './fieldName';
 
 const fields: Array<Input> = [
   {
