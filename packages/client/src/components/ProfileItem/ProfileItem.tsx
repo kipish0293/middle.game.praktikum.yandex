@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 
 type Properties = {
   name: string;
@@ -6,10 +6,11 @@ type Properties = {
 };
 
 export function ProfileItem({ name, value }: Properties) {
+  const headingSize = useBreakpointValue({ base: 'sm', md: 'md', lg: 'lg' });
   return (
     <Flex
       borderBottom="1px dashed"
-      w="lg"
+      w={headingSize}
       justify="space-between"
       paddingBottom="2"
       paddingTop="6"

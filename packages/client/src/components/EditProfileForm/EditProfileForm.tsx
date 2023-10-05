@@ -65,7 +65,7 @@ export function EditProfileForm({ setIsEditing, fields, passwordInputs }: Proper
 
   return (
     <FormControl as="form" alignItems="center" display="flex" flexDirection="column" w="80%">
-      <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={3}>
         {editProfileItems.map((input) => (
           <GridItem key={input.name} width="xs">
             <FormLabel htmlFor={input.name} fontSize="2xl" textAlign="start" display="block">
@@ -92,7 +92,7 @@ export function EditProfileForm({ setIsEditing, fields, passwordInputs }: Proper
           </GridItem>
         ))}
         {passwordInputs.map((input) => (
-          <GridItem key={input.name} width="18.7rem">
+          <GridItem key={input.name} width="xs">
             <FormLabel
               htmlFor={input.name}
               fontSize="2xl"

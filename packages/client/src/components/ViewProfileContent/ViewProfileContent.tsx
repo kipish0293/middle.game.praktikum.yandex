@@ -78,13 +78,15 @@ export function ViewProfileContent({
     .map((field) => createsItem(field));
 
   return (
-    <Flex display="flex" align="center" justify="center" direction="column">
-      <Heading as="h1" fontSize="7xl" marginTop="16" fontWeight="400">
+    <Flex display="flex" align="center" justify="center" direction="column" height="100vh">
+      <Heading as="h1" fontSize="7xl" mt="16" fontWeight="400">
         Player
       </Heading>
       <Flex
-        w="58.5rem"
-        h="3xl"
+        maxW="4xl"
+        maxH="3xl"
+        width="100vw"
+        height="100vh"
         borderRadius="15"
         backgroundColor="lightBlue"
         justify="flex-start"
@@ -92,6 +94,7 @@ export function ViewProfileContent({
         direction="column"
         align="center"
         position="relative"
+        mb={24}
       >
         <Button
           onClick={handleEditClick}
@@ -106,8 +109,10 @@ export function ViewProfileContent({
         <Button
           border="none"
           padding="0"
-          width="19rem"
-          height="18rem"
+          maxW="19rem"
+          maxH="18rem"
+          w="100%"
+          h="100%"
           type="button"
           onClick={onOpen}
         >

@@ -15,4 +15,5 @@ export { EditProfileContent } from './EditProfileContent/EditProfileContent';
 export { EditProfileForm } from './EditProfileForm/EditProfileForm';
 export { Form } from './Form/Form';
 export { LoginForm } from './LoginForm/LoginForm';
-
+export { LeaderboardItem } from './LeaderboardItem/LeaderboardItem';
+export { LeaderboardItemContent } from './LeaderboardItemContent/LeaderboardItemContent';
