@@ -2,10 +2,12 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-import { changeAvatar, changeProfile, fetchData, fetchDataUser, TUser } from './UserActionCreators';
+import { User } from '@app/types';
+
+import { changeAvatar, changeProfile, getUser, signin, signup, logout } from './UserActionCreators';
 
 interface UserState {
-  user: TUser | undefined;
+  user: User | undefined;
   isLoading: boolean;
   error: string | undefined;
 }
@@ -22,25 +24,48 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.pending, (state) => {
+      .addCase(getUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
       })
-      .addCase(fetchData.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
 
-      .addCase(fetchDataUser.pending, (state) => {
+      .addCase(logout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchDataUser.fulfilled, (state) => {
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = undefined;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(signin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signin.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(fetchDataUser.rejected, (state, action) => {
+      .addCase(signin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(signup.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signup.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(signup.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })

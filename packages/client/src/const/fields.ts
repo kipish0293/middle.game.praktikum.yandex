@@ -1,8 +1,10 @@
-import { Input } from '@app/types';
+import { Field } from '@app/types';
 
 import { FieldName } from './fieldName';
 
-const fields: Array<Input> = [
+const fields: Array<Field> = [
+  { name: FieldName.SCORE, placeholder: '', label: 'Score' },
+  { name: FieldName.FULL_NAME, placeholder: '', label: 'Name' },
   {
     name: FieldName.FIRST_NAME,
     placeholder: 'Enter your name',
@@ -27,25 +29,49 @@ const fields: Array<Input> = [
   {
     name: FieldName.EMAIL,
     placeholder: 'Enter your email',
+    label: 'Email',
+  },
+  {
+    name: FieldName.PASSWORD_OLD,
+    placeholder: 'Old password',
+    label: 'Old password',
+    type: 'password',
   },
   {
     name: FieldName.PASSWORD,
     placeholder: 'Enter password',
     label: 'Password',
+    type: 'password',
   },
   {
     name: FieldName.PASSWORD_REPEAT,
     placeholder: 'Repeat password',
     label: 'Repeat password',
-  },
-  {
-    name: FieldName.PASSWORD_OLD,
-    placeholder: 'Repeat password',
-    label: 'Repeat password',
+    type: 'password',
   },
 ];
 
 export const loginFields = fields.filter(
-  (input: Input) => input.name === FieldName.LOGIN || input.name === FieldName.PASSWORD,
+  (field) => field.name === FieldName.LOGIN || field.name === FieldName.PASSWORD,
 );
-export const profileFields = fields.filter((input) => input.name !== FieldName.PASSWORD_OLD);
+export const registerFields = fields.filter(
+  (field) =>
+    field.name !== FieldName.PASSWORD_OLD &&
+    field.name !== FieldName.SCORE &&
+    field.name !== FieldName.FULL_NAME,
+);
+
+export const profileFields = fields.filter(
+  (field) =>
+    field.name === FieldName.SCORE ||
+    field.name === FieldName.FULL_NAME ||
+    field.name === FieldName.DISPLAY_NAME ||
+    field.name === FieldName.PHONE ||
+    field.name === FieldName.EMAIL,
+);
+
+export const editProfileFields = fields.filter(
+  (field) => field.name !== FieldName.SCORE && field.name !== FieldName.FULL_NAME,
+);
+
+export type ProfileFields = typeof profileFields;

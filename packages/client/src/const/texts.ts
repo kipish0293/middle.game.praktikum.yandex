@@ -9,4 +9,5 @@ export const TEXT = {
   gameOver: 'GAME OVER',
   loginHeading: 'Welcome, hero!',
   registerHeading: 'Welcome, hero!',
+  logout: 'LOGOUT',
 };

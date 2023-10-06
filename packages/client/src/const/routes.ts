@@ -7,3 +7,12 @@ export const enum Routes {
   FORUM = '/forum',
   LEADER_BOARD = '/leaderboard',
 }
+
+export const ProtectedRoutes = [
+  Routes.FORUM,
+  Routes.GAME,
+  Routes.PROFILE,
+  Routes.FORUM,
+  Routes.LEADER_BOARD,
+];
+export const unprotectedRoutes = [Routes.REGISTER, Routes.LOGIN];

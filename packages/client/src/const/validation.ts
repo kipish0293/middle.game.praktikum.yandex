@@ -135,7 +135,31 @@ export const profileSchema = {
     .messages({ ...baseMessages, 'string.email': 'Веедён невалидный адрес электронной почты' }),
   [FieldName.PASSWORD]: password,
   [FieldName.PASSWORD_REPEAT]: passwordRepeat,
+  [FieldName.PASSWORD_OLD]: password,
   [FieldName.PHONE]: phone,
 };
+
+export const signupSchema = pick(profileSchema, [
+  FieldName.FIRST_NAME,
+  FieldName.SECOND_NAME,
+  FieldName.DISPLAY_NAME,
+  FieldName.EMAIL,
+  FieldName.PHONE,
+  FieldName.PASSWORD,
+  FieldName.PASSWORD_REPEAT,
+  FieldName.LOGIN,
+]);
+
+export const editProfileSchema = pick(profileSchema, [
+  FieldName.FIRST_NAME,
+  FieldName.SECOND_NAME,
+  FieldName.DISPLAY_NAME,
+  FieldName.EMAIL,
+  FieldName.PASSWORD,
+  FieldName.PHONE,
+  FieldName.PASSWORD_REPEAT,
+  FieldName.PASSWORD_OLD,
+  FieldName.LOGIN,
+]);
 
 export const loginSchema = pick(profileSchema, [[FieldName.LOGIN], [FieldName.PASSWORD]]);

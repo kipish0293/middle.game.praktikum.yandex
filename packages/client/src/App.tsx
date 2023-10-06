@@ -1,9 +1,13 @@
+import './App.css';
+
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/ubuntu-mono/cyrillic.css';
 import '@fontsource/ubuntu-mono/latin.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
-import { ErrorBoundary } from '@app/components';
+import { useAppDispatch } from '@app/hooks';
+import { ErrorBoundary, Layout } from '@app/components';
 import {
   ForumPage,
   GamePage,
@@ -16,23 +20,34 @@ import {
   ServiceUnavailable,
   GameOverPage,
 } from '@app/pages';
+import { getUser } from '@app/store';
 
-import './App.css';
 import { theme } from './chakraTheme';
 import { ForumList } from './pages/forum/components/ForumList';
 import { ForumTopic } from './pages/forum/components/ForumTopic';
 
 export function App() {
+  const dispatch = useAppDispatch();
+  const initialDataFetch = useRef(false);
+
+  useEffect(() => {
+    if (initialDataFetch.current) {
+      return;
+    }
+    initialDataFetch.current = true;
+    dispatch(getUser());
+  }, []);
+
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <ErrorBoundary isPage componentName="App">
           <Routes>
-            <Route path="/">
-              <Route index element={<MainPage />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="game" element={<GamePage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="game" element={<GamePage />} />
+            <Route index element={<MainPage />} />
+            <Route path="/" element={<Layout />}>
               <Route path="profile" element={<ProfilePage />} />
               <Route path="forum" element={<ForumPage />}>
                 <Route index element={<ForumList />} />

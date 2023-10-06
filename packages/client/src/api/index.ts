@@ -1,1 +1,2 @@
-export { UserApi } from './requestUser';
+export { UserApi } from './userApi';
+export { AuthApi } from './authApi';

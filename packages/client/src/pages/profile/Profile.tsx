@@ -1,93 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 
 import { useAppDispatch } from '@app/hooks';
-import { ViewProfileContent, EditProfileContent } from '@app/components';
-import { changeAvatar, fetchData, fetchDataUser } from '@app/store';
-
-const fields = [
-  {
-    name: 'id',
-    label: 'Score',
-    placeholder: 'Enter your name',
-    profileItem: true,
-  },
-  {
-    name: 'full_name',
-    label: 'Name',
-    placeholder: 'Enter your name',
-    profileItem: true,
-  },
-  {
-    name: 'first_name',
-    label: 'Name',
-    placeholder: 'Enter your name',
-    editProfileItem: true,
-  },
-  {
-    name: 'second_name',
-    label: 'Surname',
-    placeholder: 'Enter your name',
-    editProfileItem: true,
-  },
-  {
-    name: 'display_name',
-    label: 'Nickname',
-    placeholder: 'Enter your nickname',
-    profileItem: true,
-    editProfileItem: true,
-  },
-  {
-    name: 'login',
-    label: 'Login',
-    placeholder: 'Enter your nickname',
-    editProfileItem: true,
-  },
-  {
-    name: 'email',
-    label: 'Email',
-    placeholder: 'Enter your email',
-    profileItem: true,
-    editProfileItem: true,
-  },
-  {
-    name: 'phone',
-    label: 'Phone',
-    placeholder: 'Enter your phone',
-    profileItem: true,
-    editProfileItem: true,
-  },
-];
-
-const passwordInputs = [
-  {
-    name: 'newPassword',
-    label: 'Password',
-    placeholder: 'Enter password',
-  },
-  {
-    name: 'oldPassword',
-    label: 'Old password',
-    placeholder: 'Enter password',
-  },
-  {
-    name: 'password_repeat',
-    label: 'Repeat password',
-    placeholder: 'Repeat password',
-  },
-];
+import { ProfileTable, EditProfile } from '@app/components';
+import { changeAvatar } from '@app/store';
+import { profileFields } from '@app/const';
 
 export function ProfilePage() {
   const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  useEffect(() => {
-    dispatch(fetchDataUser()).then(() => {
-      dispatch(fetchData());
-    });
-  }, []);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -113,21 +36,16 @@ export function ProfilePage() {
   };
 
   return isEditing ? (
-    <EditProfileContent
-      handleSaveClick={handleSaveClick}
-      setIsEditing={setIsEditing}
-      fields={fields}
-      passwordInputs={passwordInputs}
-    />
+    <EditProfile handleSaveClick={handleSaveClick} />
   ) : (
-    <ViewProfileContent
+    <ProfileTable
       handleEditClick={handleEditClick}
       handleInputChange={handleInputChange}
       handleSubmit={handleSubmit}
       isOpen={isOpen}
       onOpen={onOpen}
       onClose={onClose}
-      fields={fields}
+      fields={profileFields}
     />
   );
 }

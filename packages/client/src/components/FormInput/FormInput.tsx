@@ -16,7 +16,6 @@ type Properties = {
   id?: string;
 };
 
-
 export const FormInput = forwardRef((properties: Properties, reference) => {
   const { placeholder = '', errorMessage = '', mb, width, value, id, onChange } = properties;
   const inputProperties = omit(properties, ['errorMessage']);

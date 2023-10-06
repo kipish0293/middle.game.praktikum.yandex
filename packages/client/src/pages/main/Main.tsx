@@ -9,9 +9,9 @@ import styles from './Main.module.css';
 export function MainPage() {
   return (
     <Center h="100vh">
-      <Box bg={BACKGROUND_CONST} borderRadius="8px" w="50%">
-        <Box as="nav" className={styles.nav} p="40px">
-          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+      <Box bg={BACKGROUND_CONST} as="nav" borderRadius="8px" w="50%">
+        <Box as="ul" className={styles.nav} p="40px">
+          <Button as="li" variant="link" className={styles['nav-button']} borderRadius={0}>
             <Link
               to={Routes.GAME}
               color="black"
@@ -23,7 +23,7 @@ export function MainPage() {
               {TEXT.gameLink}
             </Link>
           </Button>
-          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+          <Button as="li" variant="link" className={styles['nav-button']} borderRadius={0}>
             <Link
               to={Routes.LEADER_BOARD}
               color="black"
@@ -35,7 +35,7 @@ export function MainPage() {
               {TEXT.leadersLink}
             </Link>
           </Button>
-          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+          <Button as="li" variant="link" className={styles['nav-button']} borderRadius={0}>
             <Link
               to={Routes.FORUM}
               color="black"
@@ -47,7 +47,7 @@ export function MainPage() {
               {TEXT.forumLink}
             </Link>
           </Button>
-          <Button variant="link" className={styles['nav-button']} borderRadius={0}>
+          <Button as="li" variant="link" className={styles['nav-button']} borderRadius={0}>
             <Link
               to={Routes.PROFILE}
               color="black"

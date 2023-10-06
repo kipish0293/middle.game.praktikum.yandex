@@ -1,31 +1,27 @@
 import { Button, Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
 
-import { EditProfileForm, Icons, TField } from '@app/components';
+import { ProfileForm, Icons } from '@app/components';
+import { useAppSelector } from '@app/hooks';
 
 type Properties = {
   handleSaveClick: () => void;
-  setIsEditing: Dispatch<SetStateAction<boolean>>;
-  fields: TField[];
-  passwordInputs: TField[];
 };
 
-export function EditProfileContent({
-  handleSaveClick,
-  setIsEditing,
-  fields,
-  passwordInputs,
-}: Properties) {
+const editProfileText = {
+  title: 'Edit profile',
+};
+
+export function EditProfile({ handleSaveClick }: Properties) {
+  const { user } = useAppSelector((state) => state.user);
   const headingSize = useBreakpointValue({ base: '4xl', md: '6xl', lg: '7xl' });
   return (
-    <Flex display="flex" align="center" justify="center" direction="column" height="100vh">
+    <Flex display="flex" align="center" justify="center" direction="column">
       <Heading as="h1" fontSize={headingSize} mt="16" fontWeight="400">
-        Edit profile
+        {editProfileText.title}
       </Heading>
       <Flex
-        maxW="4xl"
-        maxH="3xl"
-        width="100vh"
+        w="4xl"
+        h="3xl"
         borderRadius="15"
         backgroundColor="lightBlue"
         justify="center"
@@ -33,7 +29,6 @@ export function EditProfileContent({
         direction="column"
         align="center"
         position="relative"
-        mb={24}
       >
         <Button
           onClick={handleSaveClick}
@@ -46,11 +41,7 @@ export function EditProfileContent({
         >
           <Icons.GoBackProfileIcon />
         </Button>
-        <EditProfileForm
-          setIsEditing={setIsEditing}
-          fields={fields}
-          passwordInputs={passwordInputs}
-        />
+        <ProfileForm user={user} goToProfileTable={handleSaveClick} />
       </Flex>
     </Flex>
   );

@@ -75,7 +75,7 @@ export function LeaderboardPage() {
               place={item.place}
               player={item.player}
               score={item.score}
-              background={index % 2 === 0 ? 'orange' : 'red'}
+              background={index % 2 === 0 ? 'orange' : 'lightRed'}
               icon={index === 0 ? <Icons.BestPlayer /> : undefined}
             />
           ))}
