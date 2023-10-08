@@ -1,32 +1,28 @@
 import { AbstractScene } from '../../core/AbstractScene/AbstractScene';
-import { SampleEntity } from '../../entities/SampleEntity/SampleEntity';
 import { SampleObstacle } from '../../entities/SampleObstacle/SampleObstacle';
+import { SampleEntity } from '../../entities/SampleEntity/SampleEntity';
 
 export class IntroScene extends AbstractScene {
-  public sampleEntity = new SampleEntity();
-
-  public obstacles = [new SampleObstacle()];
-
   public constructor() {
     super();
-    this.registerEntities(this.sampleEntity, ...this.obstacles);
+    const obstacles = [new SampleObstacle()];
+    const obstaclesMap = obstacles.map((obstacle) => ({ type: 'obstacle', entity: obstacle }));
+    this.registerEntities(...obstaclesMap, { type: 'player', entity: new SampleEntity() });
   }
 
   public render(deltaTime: number, context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     context.strokeRect(0, 0, canvas.width, canvas.height);
-    for (const entity of this.entityService.entities) {
+    for (const entity of this.entityService.getEntities()) {
       entity.render(deltaTime, context);
     }
   }
 
   public update(deltaTime: number) {
-    for (const entity of this.entityService.entities) {
+    const entities = this.entityService.getEntities();
+    for (const entity of entities) {
       entity.update(deltaTime);
     }
-    for (const obstacle of this.obstacles) {
-      if (obstacle.checkCollision(this.sampleEntity)) {
-        console.log('intersects');
-      }
-    }
   }
+
+  public onDestroy(): void {}
 }

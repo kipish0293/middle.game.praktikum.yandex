@@ -54,28 +54,7 @@ export abstract class AbstractEntity {
     this.position = this.position.add(moveDirection);
   }
 
-  public checkCollision(other: AbstractEntity) {
-    return (
-      this.posX + this.width >= other.posX &&
-      this.posX <= other.posX + other.width &&
-      this.posY + this.height >= other.posY &&
-      this.posY <= other.posY + other.height
-    );
-  }
-
-  public calculateCollisionShape(other: AbstractEntity) {
-    console.log(other);
-    // TODO: реализовать вычисление области коллизии
-  }
-
-  public resolveCollision(other: AbstractEntity) {
-    console.log(other);
-    // TODO: реализовать разрешение коллизии
-  }
-
   public abstract update(deltaTime: number): void;
 
   public abstract render(deltaTime: number, context: CanvasRenderingContext2D): void;
-
-  public abstract destroy(): void;
 }

@@ -44,16 +44,16 @@ export class SampleEntity extends AbstractEntity {
 
   private handleInput() {
     if (this.inputService.getInputKeyState(KeyCode.KeyW)) {
-      this.move(new Vector(0, -10));
+      this.move(new Vector(0, -1));
     }
     if (this.inputService.getInputKeyState(KeyCode.KeyS)) {
-      this.move(new Vector(0, 10));
+      this.move(new Vector(0, 1));
     }
     if (this.inputService.getInputKeyState(KeyCode.KeyA)) {
-      this.move(new Vector(-10, 0));
+      this.move(new Vector(-1, 0));
     }
     if (this.inputService.getInputKeyState(KeyCode.KeyD)) {
-      this.move(new Vector(10, 0));
+      this.move(new Vector(1, 0));
     }
   }
 
@@ -67,9 +67,5 @@ export class SampleEntity extends AbstractEntity {
     this.acc = this.force.divideScalar(this.mass);
     this.velocity = this.velocity.addScaled(this.acc, deltaTime);
     this.position = this.position.addScaled(this.velocity, deltaTime);
-  }
-
-  public destroy(): void {
-    // TODO: реализовать
   }
 }

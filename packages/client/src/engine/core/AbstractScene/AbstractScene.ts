@@ -1,5 +1,5 @@
-import { AbstractEntity } from '../AbstractEntity/AbstractEntity';
 import { EntityService } from '../EntityService/EntityService';
+import { EntitiesMapItem } from '../EntityService/types';
 
 export abstract class AbstractScene {
   protected readonly entityService = EntityService.getInstance();
@@ -12,18 +12,23 @@ export abstract class AbstractScene {
     canvas: HTMLCanvasElement,
   ): void;
 
-  public registerEntities(...entities: AbstractEntity[]) {
-    for (const entity of entities) {
-      this.entityService.registerEntity(entity);
+  public registerEntities(...items: EntitiesMapItem[]) {
+    for (const item of items) {
+      this.entityService.registerEntity(item);
     }
   }
 
-  public destroyEntity(entity: AbstractEntity) {
-    this.entityService.destroyEntity(entity);
+  public abstract onDestroy?(): void;
+
+  public destroyEntity(item: EntitiesMapItem) {
+    this.entityService.destroyEntity(item);
   }
 
   public destroy() {
     this.destroyAllEntities();
+    if (this.onDestroy) {
+      this.onDestroy();
+    }
   }
 
   public destroyAllEntities() {

@@ -80,7 +80,7 @@ export class Game {
 
   public setScene<T extends new (game: Game) => R, R extends AbstractScene>(Scene: T) {
     if (this._activeScene) {
-      this._activeScene.destroyAllEntities();
+      this._activeScene.destroy();
     }
 
     this._activeScene = new Scene(this);

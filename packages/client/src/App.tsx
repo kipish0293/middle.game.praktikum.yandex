@@ -45,7 +45,6 @@ export function App() {
           <Routes>
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="game" element={<GamePage />} />
             <Route index element={<MainPage />} />
             <Route path="/" element={<Layout />}>
               <Route path="profile" element={<ProfilePage />} />
@@ -55,6 +54,7 @@ export function App() {
               </Route>
               <Route path="leaderboard" element={<LeaderboardPage />} />
               <Route path="service-unavailable" element={<ServiceUnavailable />} />
+              <Route path="game" element={<GamePage />} />
               <Route path="game-over" element={<GameOverPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { Game, IntroScene } from '../../engine';
+import { Game, IntroScene } from '@app/engine';
 
 export function EngineCanvas() {
   const reference = useRef<HTMLCanvasElement>(null);
@@ -11,6 +11,10 @@ export function EngineCanvas() {
       return;
     }
     game.start();
+    // eslint-disable-next-line consistent-return
+    return () => {
+      game.stop();
+    };
   }, [game]);
 
   useEffect(() => {
