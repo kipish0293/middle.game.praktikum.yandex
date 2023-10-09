@@ -52,6 +52,7 @@ export function CreateTopic({ onConfirm, onClose }: CreateTopicProperties) {
         placeholder="Enter topic name"
         isInvalid={false}
         onChange={onChange}
+        mb={5}
       />
       <FormTextArea
         name="topic-description"

@@ -18,7 +18,7 @@ type GridItemType = {
 };
 
 const titleItemList = ['Themes', 'Date', 'Comments', ''];
-const itemsPerPage = 5;
+const itemsPerPage = 10;
 
 export function ForumList() {
   const [data, setData] = useState(mock.data.allTheme);
