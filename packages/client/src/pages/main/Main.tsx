@@ -1,15 +1,14 @@
 import { Box, Button, Center } from '@chakra-ui/react';
-import { BACKGROUND_CONST } from '@app/utils/textConstants';
 
 import { Icons, Link } from '@app/components';
-import { Routes, TEXT } from '@app/const';
+import { Routes, TEXT, BACKGROUND_COLOR } from '@app/const';
 
 import styles from './Main.module.css';
 
 export function MainPage() {
   return (
     <Center h="100vh">
-      <Box bg={BACKGROUND_CONST} as="nav" borderRadius="8px" w="50%">
+      <Box bg={BACKGROUND_COLOR} as="nav" borderRadius="8px" w="50%">
         <Box as="ul" className={styles.nav} p="40px">
           <Button as="li" variant="link" className={styles['nav-button']} borderRadius={0}>
             <Link

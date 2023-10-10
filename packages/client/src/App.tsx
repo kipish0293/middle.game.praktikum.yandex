@@ -6,6 +6,7 @@ import '@fontsource/ubuntu-mono/latin.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { useEffect, useRef } from 'react';
+import { registerFullScreenEvents } from '@app/utils/fullScreenApi';
 
 import { Routes as RouteNames } from '@app/const';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
@@ -34,10 +35,13 @@ export function App() {
   const { isLoading } = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    registerFullScreenEvents();
+
     if (initialDataFetch.current) {
       return;
     }
     initialDataFetch.current = true;
+
     dispatch(getUser());
 
     // в режиме разработки срабатывает дважды из-за React.StrictMode

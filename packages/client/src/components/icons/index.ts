@@ -3,6 +3,8 @@ import { CreateItemIcon } from './CreateItemIcon';
 import { Crown } from './Crown';
 import { CupIcon } from './CupIcon';
 import { ForumIcon } from './ForumIcon';
+import { FullScreenOffIcon } from './FullScreenOffIcon';
+import { FullScreenOnIcon } from './FullScreenOnIcon';
 import { GoBackIcon } from './GoBackIcon';
 import { PlayerIcon } from './PlayerIcon';
 import { TrashItemIcon } from './TrashItemIcon';
@@ -17,6 +19,8 @@ export const Icons = {
   Crown,
   CupIcon,
   ForumIcon,
+  FullScreenOffIcon,
+  FullScreenOnIcon,
   GoBackIcon,
   PlayerIcon,
   TrashItemIcon,
