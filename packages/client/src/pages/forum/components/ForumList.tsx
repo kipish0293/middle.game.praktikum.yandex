@@ -1,8 +1,8 @@
 import { Box, Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { dateFormat } from '@app/utils/dateFormatter';
 
 import { Icons, Link, Modal, Pagination } from '@app/components';
-import { dateFormat } from '@app/utils';
 
 import styles from '../Forum.module.css';
 import mock from '../mock.json';

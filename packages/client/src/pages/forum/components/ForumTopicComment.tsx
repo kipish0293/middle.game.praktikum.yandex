@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, GridItem, Text } from '@chakra-ui/react';
+import { dateFormat } from '@app/utils/dateFormatter';
 
 import { Icons } from '@app/components';
-import { dateFormat } from '@app/utils';
 
 import avatar from '../../../assets/images/avatar.png';
 import style from '../Forum.module.css';

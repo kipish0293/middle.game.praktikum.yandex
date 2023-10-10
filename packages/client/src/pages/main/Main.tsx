@@ -1,6 +1,6 @@
 import { Box, Button, Center } from '@chakra-ui/react';
+import { BACKGROUND_CONST } from '@app/utils/textConstants';
 
-import { BACKGROUND_CONST } from '@app/utils';
 import { Icons, Link } from '@app/components';
 import { Routes, TEXT } from '@app/const';
 

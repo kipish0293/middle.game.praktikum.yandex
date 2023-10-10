@@ -1,7 +1,6 @@
 import { Container, Flex } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-
-import { BACKGROUND_CONST } from '@app/utils';
+import { BACKGROUND_CONST } from '@app/utils/textConstants';
 
 export function ForumPage() {
   return (

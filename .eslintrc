@@ -24,7 +24,10 @@
     "*.js",
     "vite.config.ts",
     "jest.config.js",
-    "stylelint.config.js"
+    "stylelint.config.js",
+    "**/test/*.ts",
+    "**/test/*.tsx",
+    "jest.config.ts"
   ],
   "rules": {
     "import/prefer-default-export": "off",

@@ -4,6 +4,7 @@ import { Center, ChakraProvider, Spinner } from '@chakra-ui/react';
 import '@fontsource/ubuntu-mono/cyrillic.css';
 import '@fontsource/ubuntu-mono/latin.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { useEffect, useRef } from 'react';
 
 import { Routes as RouteNames } from '@app/const';
@@ -22,7 +23,6 @@ import {
   ServiceUnavailable,
 } from '@app/pages';
 import { getUser } from '@app/store';
-import { startServiceWorker } from '@app/utils';
 
 import { theme } from './chakraTheme';
 import { ForumList } from './pages/forum/components/ForumList';

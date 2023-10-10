@@ -25,7 +25,7 @@ const baseMessages = {
   'string.empty': messages.empty,
 };
 
-const password = Joi.string()
+const password = Joi?.string()
   .min(8)
   .max(40)
   .pattern(evenOneDigit, 'evenOneDigit')
@@ -45,7 +45,7 @@ const password = Joi.string()
     return errors;
   });
 
-const nickname = Joi.string()
+const nickname = Joi?.string()
   .min(3)
   .max(10)
   .alphanum()
@@ -56,7 +56,7 @@ const nickname = Joi.string()
     'string.alphanum': 'Никнейм должен состоять из латинских символов и цифр',
   });
 
-const name = Joi.string()
+const name = Joi?.string()
   .min(2)
   .max(50)
   .pattern(firstLetterCapital, 'firstLetterCapital')
@@ -92,7 +92,7 @@ const name = Joi.string()
     return errors;
   });
 
-const login = Joi.string()
+const login = Joi?.string()
   .min(3)
   .max(20)
   .pattern(notOnlyDigits, 'notOnlyDigits')
@@ -112,54 +112,54 @@ const login = Joi.string()
     return errors;
   });
 
-const phone = Joi.string()
+const phone = Joi?.string()
   .min(10)
   .max(15)
   .pattern(telephone)
   .label('Телефон')
   .messages({ ...baseMessages, 'string.pattern.base': '{#label} содержит недопустимые символы' });
 
-const passwordRepeat = Joi.string()
+const passwordRepeat = Joi?.string()
   .valid(Joi.ref('password'))
   .required()
   .label('Повтор пароля')
   .messages({ ...baseMessages, 'any.only': 'Введённые пароли не совпадают' });
 export const profileSchema = {
-  [FieldName.FIRST_NAME]: name,
-  [FieldName.SECOND_NAME]: name,
-  [FieldName.LOGIN]: login,
-  [FieldName.DISPLAY_NAME]: nickname,
-  [FieldName.EMAIL]: Joi.string()
+  [FieldName?.FIRST_NAME]: name,
+  [FieldName?.SECOND_NAME]: name,
+  [FieldName?.LOGIN]: login,
+  [FieldName?.DISPLAY_NAME]: nickname,
+  [FieldName?.EMAIL]: Joi?.string()
     .email({ tlds: { allow: false } })
     .required()
     .messages({ ...baseMessages, 'string.email': 'Веедён невалидный адрес электронной почты' }),
-  [FieldName.PASSWORD]: password,
-  [FieldName.PASSWORD_REPEAT]: passwordRepeat,
-  [FieldName.PASSWORD_OLD]: password,
-  [FieldName.PHONE]: phone,
+  [FieldName?.PASSWORD]: password,
+  [FieldName?.PASSWORD_REPEAT]: passwordRepeat,
+  [FieldName?.PASSWORD_OLD]: password,
+  [FieldName?.PHONE]: phone,
 };
 
 export const signupSchema = pick(profileSchema, [
-  FieldName.FIRST_NAME,
-  FieldName.SECOND_NAME,
-  FieldName.DISPLAY_NAME,
-  FieldName.EMAIL,
-  FieldName.PHONE,
-  FieldName.PASSWORD,
-  FieldName.PASSWORD_REPEAT,
-  FieldName.LOGIN,
+  FieldName?.FIRST_NAME,
+  FieldName?.SECOND_NAME,
+  FieldName?.DISPLAY_NAME,
+  FieldName?.EMAIL,
+  FieldName?.PHONE,
+  FieldName?.PASSWORD,
+  FieldName?.PASSWORD_REPEAT,
+  FieldName?.LOGIN,
 ]);
 
 export const editProfileSchema = pick(profileSchema, [
-  FieldName.FIRST_NAME,
-  FieldName.SECOND_NAME,
-  FieldName.DISPLAY_NAME,
-  FieldName.EMAIL,
-  FieldName.PASSWORD,
-  FieldName.PHONE,
-  FieldName.PASSWORD_REPEAT,
-  FieldName.PASSWORD_OLD,
-  FieldName.LOGIN,
+  FieldName?.FIRST_NAME,
+  FieldName?.SECOND_NAME,
+  FieldName?.DISPLAY_NAME,
+  FieldName?.EMAIL,
+  FieldName?.PASSWORD,
+  FieldName?.PHONE,
+  FieldName?.PASSWORD_REPEAT,
+  FieldName?.PASSWORD_OLD,
+  FieldName?.LOGIN,
 ]);
 
-export const loginSchema = pick(profileSchema, [[FieldName.LOGIN], [FieldName.PASSWORD]]);
+export const loginSchema = pick(profileSchema, [[FieldName?.LOGIN], [FieldName?.PASSWORD]]);

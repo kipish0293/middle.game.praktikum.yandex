@@ -28,11 +28,12 @@
       "@app/services": ["services"],
       "@app/store": ["store"],
       "@app/types": ["types"],
-      "@app/utils": ["utils"],
+      "@app/utils/*": ["utils/*"],
       "@app/const": ["const"],
       "@app/engine": ["engine"]
     }
   },
-  "include": ["src/**/*", "public/**/*"],
+  "types": ["@types/jest"],
+  "include": ["src/**/*", "jest.config.ts", "public/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -8,8 +8,7 @@ import {
   Modal as ModalWindow,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-
-import { BACKGROUND_CONST } from '@app/utils';
+import { BACKGROUND_CONST } from '@app/utils/textConstants';
 
 type ModalProperties = {
   onClose: () => void;
@@ -33,14 +32,14 @@ export function Modal({
   return (
     <ModalWindow onClose={onClose} size={size} isOpen={isOpen} isCentered={isCentered}>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(90deg)" />
-      <ModalContent bg={bg}>
-        <ModalHeader>
+      <ModalContent bg={bg} data-testid="modal-content">
+        <ModalHeader data-testid="modal-header">
           <Heading as="h2" fontSize="2xl">
             {title}
           </Heading>
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>{body}</ModalBody>
+        <ModalCloseButton data-testid="modal-close-btn" />
+        <ModalBody data-testid="modal-body">{body}</ModalBody>
       </ModalContent>
     </ModalWindow>
   );

@@ -8,7 +8,9 @@
     "lint": "eslint . && stylelint ./src/**/*.css",
     "format": "prettier --write .",
     "test": "jest ./",
-    "serv": "node server.js"
+    "serv": "node server.js",
+    "test_dev": "jest --watch --verbose",
+    "server": "node server.js"
   },
   "dependencies": {
     "@chakra-ui/icon": "^3.2.0",
@@ -34,16 +36,22 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@testing-library/react": "^13.3.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.0",
+    "@testing-library/jest-dom": "^6.1.3",
+    "@testing-library/react": "^14.0.0",
     "@types/jest": "^28.1.8",
     "@types/joi": "^17.2.3",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/react-test-renderer": "^18.0.3",
     "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.15",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.49.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -54,14 +62,17 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-unicorn": "^48.0.1",
-    "jest": "^28",
+    "jest": "29.0.0",
+    "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.0.1",
+    "jsdom": "^22.1.0",
     "lefthook": "^1.3.9",
     "postcss": "^8.4.29",
     "postcss-css-variables": "^0.19.0",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.1",
     "prettier": "^3.0.3",
+    "react-test-renderer": "^18.2.0",
     "stylelint": "^15.10.3",
     "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-config-recess-order": "^4.3.0",
@@ -69,8 +80,13 @@
     "stylelint-config-sass-guidelines": "^10.0.0",
     "stylelint-config-standard": "^34.0.0",
     "ts-jest": "^28.0.8",
+    "tsconfig-paths-jest": "^0.0.1",
     "typescript": "^4.8.2",
     "vite": "^3.0.7"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ]
 }
