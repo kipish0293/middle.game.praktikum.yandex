@@ -52,7 +52,7 @@ export class BaseApi {
       ).catch((error) => {
         throw new Error(error);
       });
-      return await this.checkResponse(response).json();
+      return await this.checkResponse(response).text();
     } catch (error) {
       if (error instanceof Error) {
         throw new TypeError(`API Error: ${error.message}`);
