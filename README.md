@@ -79,3 +79,7 @@
 ## Документация по игровому движку
 
 [Ссылка](packages/client/src/engine/README.md)
+
+
+## Скринкаст для первого командного зачета
+[Ссылка](https://www.youtube.com/watch?v=VK6FW-lDsPw)
