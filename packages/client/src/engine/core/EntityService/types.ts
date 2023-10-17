@@ -1,3 +1,5 @@
 import { AbstractEntity } from '@app/engine';
 
-export type EntitiesMapItem = { type: string; entity: AbstractEntity };
+import { Entities } from '../../entities/types/Entities';
+
+export type EntitiesMapItem = { type: Entities; entity: AbstractEntity };

@@ -2,7 +2,6 @@ const CACHE_NAME = 'cache-name-v1';
 
 const urlsForDev = [
   '/',
-  '/src/assets/Apple.png',
   '/src/assets/images/avatar.png',
   '/src/assets/images/game_over.png',
   '/src/assets/images/logo_login.png',
@@ -12,7 +11,6 @@ const urlsForDev = [
 
 const urlsForProd = [
   '/',
-  '/src/Apple.png',
   '/src/avatar.png',
   '/src/game_over.png',
   '/src/logo_login.png',
