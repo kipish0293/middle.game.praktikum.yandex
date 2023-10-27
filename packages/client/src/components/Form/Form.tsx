@@ -3,7 +3,7 @@ import { Flex, FormControl, FormLabel } from '@chakra-ui/react';
 import { FieldError, FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi, { PartialSchemaMap } from 'joi';
-import { v4 as makeUUID } from 'uuid';
+import { useId } from 'react';
 
 import { FormButton, FormInput } from '@app/components';
 import { Field } from '@app/types';
@@ -86,7 +86,7 @@ export function Form({
         const { name, placeholder, type, label } = input;
         const error = errors[name];
         const isInvalid = !!error;
-        const id = makeUUID();
+        const id = useId();
         if (withLabel) {
           return (
             <Flex alignItems="center" gap={5} w="70%" justifyContent="space-between" key={id}>

@@ -1,7 +1,6 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState, useId } from 'react';
 import { useParams } from 'react-router-dom';
-import { v4 as makeUUID } from 'uuid';
 
 import { FormTextArea, Icons, Link, Pagination } from '@app/components';
 
@@ -60,7 +59,7 @@ export function ForumTopic() {
     const dataCopy = { ...data };
 
     dataCopy.comments.push({
-      id: makeUUID(),
+      id: useId(),
       name: 'Ivanessson',
       creationDate: new Date().toISOString(),
       comment: inputText,

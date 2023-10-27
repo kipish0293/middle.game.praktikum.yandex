@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
-
 import react from '@vitejs/plugin-react';
 import postcssAutoprefixer from 'autoprefixer';
 import postcssVars from 'postcss-css-variables';
 import postcssImport from 'postcss-import';
 import postcssNested from 'postcss-nested';
 import { modifyFilePlugin } from './vite-plugin-modify-file';
+import path from 'path';
 
 dotenv.config();
 
@@ -18,6 +18,7 @@ export default defineConfig(() => {
   return {
     define: {
       __SERVER_PORT__: process.env.SERVER_PORT,
+      self: this,
     },
     plugins: [
       react(),
@@ -29,6 +30,11 @@ export default defineConfig(() => {
     ],
     build: {
       assetsDir: 'src',
+      lib: {
+        entry: path.resolve(__dirname, 'src/ssr.tsx'),
+        formats: ['cjs'],
+        name: 'client',
+      },
       rollupOptions: {
         output: {
           assetFileNames: (file) => {
@@ -38,7 +44,9 @@ export default defineConfig(() => {
             }
             return 'src/[name].[hash].[extname]';
           },
+          dir: 'dist-ssr',
         },
+        external: ['react', '@emotion/react', '@emotion/styled'],
       },
     },
     server: {

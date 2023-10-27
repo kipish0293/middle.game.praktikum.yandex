@@ -7,6 +7,8 @@ import { GameState } from '@app/types';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { gameStateActions } from '@app/store';
 
+import { useDocument } from '../../hooks/useDocument';
+
 function GameNotStartedPageView() {
   const dispatch = useAppDispatch();
   const score = useAppSelector((state) => state.score);
@@ -73,13 +75,15 @@ const PageView = {
 export function GamePage() {
   const gameState = useAppSelector((state) => state.gameState);
 
-  const [fullScreen, setFullScreen] = useState<boolean>(!!document.fullscreenElement);
+  const document = useDocument();
+
+  const [fullScreen, setFullScreen] = useState<boolean>(!!document?.fullscreenElement);
 
   useEffect(() => {
-    const eventHandler = () => setFullScreen(!!document.fullscreenElement);
+    const eventHandler = () => setFullScreen(!!document?.fullscreenElement);
 
-    document.addEventListener('fullscreenchange', eventHandler);
-    return () => document.removeEventListener('fullscreenchange', eventHandler);
+    document?.addEventListener('fullscreenchange', eventHandler);
+    return () => document?.removeEventListener('fullscreenchange', eventHandler);
   }, []);
 
   return (

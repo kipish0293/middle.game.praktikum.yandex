@@ -23,6 +23,9 @@ export function modifyFilePlugin(options) {
         const cacheName = `cache_${branchName}_${countCommit}`;
 
         // Вносим изменения в содержимое файла:
+        if (options.developmentMode) {
+          fileContents = fileContents.replace('const PROD_MODE = true', 'const PROD_MODE = false');
+        }
         fileContents = fileContents.replace(options.search, cacheName);
 
         // Записываем измененное содержимое обратно в файл

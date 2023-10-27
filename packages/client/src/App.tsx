@@ -3,7 +3,7 @@ import './App.css';
 import { Center, ChakraProvider, Spinner } from '@chakra-ui/react';
 import '@fontsource/ubuntu-mono/cyrillic.css';
 import '@fontsource/ubuntu-mono/latin.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { useEffect, useRef } from 'react';
 import { registerFullScreenEvents } from '@app/utils/fullScreenApi';
@@ -50,35 +50,33 @@ export function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <ErrorBoundary isPage componentName="App">
-          {isLoading ? (
-            <Center h="100vh">
-              <Spinner size="xl" />
-            </Center>
-          ) : (
-            <Routes>
-              <Route path={RouteNames.ROOT} element={<ProtectedRoute />}>
-                <Route path={RouteNames.LOGIN} element={<LoginPage />} />
-                <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
-                <Route path={RouteNames.GAME} element={<GamePage />} />
-                <Route index element={<MainPage />} />
-                <Route path={RouteNames.SERVICE_UNAVAILABLE} element={<ServiceUnavailable />} />
-                <Route path={RouteNames.ROOT} element={<Layout />}>
-                  <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
-                  <Route path={RouteNames.FORUM} element={<ForumPage />}>
-                    <Route index element={<ForumList />} />
-                    <Route path=":id" element={<ForumTopic />} />
-                  </Route>
-                  <Route path={RouteNames.LEADER_BOARD} element={<LeaderboardPage />} />
-                  <Route path={RouteNames.GAME_OVER} element={<GameOverPage />} />
+      <ErrorBoundary isPage componentName="App">
+        {isLoading ? (
+          <Center h="100vh">
+            <Spinner size="xl" />
+          </Center>
+        ) : (
+          <Routes>
+            <Route path={RouteNames.ROOT} element={<ProtectedRoute />}>
+              <Route path={RouteNames.LOGIN} element={<LoginPage />} />
+              <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
+              <Route path={RouteNames.GAME} element={<GamePage />} />
+              <Route index element={<MainPage />} />
+              <Route path={RouteNames.SERVICE_UNAVAILABLE} element={<ServiceUnavailable />} />
+              <Route path={RouteNames.ROOT} element={<Layout />}>
+                <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
+                <Route path={RouteNames.FORUM} element={<ForumPage />}>
+                  <Route index element={<ForumList />} />
+                  <Route path=":id" element={<ForumTopic />} />
                 </Route>
+                <Route path={RouteNames.LEADER_BOARD} element={<LeaderboardPage />} />
+                <Route path={RouteNames.GAME_OVER} element={<GameOverPage />} />
               </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          )}
-        </ErrorBoundary>
-      </BrowserRouter>
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        )}
+      </ErrorBoundary>
     </ChakraProvider>
   );
 }

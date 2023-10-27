@@ -1,6 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { ReactNode } from 'react';
-import { v4 as makeUUID } from 'uuid';
+import { ReactNode, useId } from 'react';
 
 import styles from '../Forum.module.css';
 
@@ -22,7 +21,7 @@ export function GridColumnTemplate({ isTitle, itemList }: GridColumType) {
           h="10"
           className={currentClassName}
           fontSize={fonSize}
-          key={makeUUID()}
+          key={useId()}
           bg={index === itemList.length - 1 ? 'transparent' : '#fff'}
         >
           <Box className={styles.griditem_box}>{item}</Box>

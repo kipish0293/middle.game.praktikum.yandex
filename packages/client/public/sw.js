@@ -1,4 +1,5 @@
 const CACHE_NAME = 'cache-name-v1';
+const PROD_MODE = true;
 
 const urlsForDev = [
   '/',
@@ -20,7 +21,7 @@ const urlsForProd = [
 
 let URLS;
 
-if (import.meta.env.PROD) {
+if (PROD_MODE) {
   URLS = urlsForProd;
 } else {
   URLS = urlsForDev;
