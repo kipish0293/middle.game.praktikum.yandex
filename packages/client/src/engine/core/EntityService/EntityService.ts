@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { AbstractEntity } from '../AbstractEntity/AbstractEntity';
 
 import { EntitiesMapItem } from './types';
@@ -5,7 +7,7 @@ import { EntitiesMapItem } from './types';
 export class EntityService {
   private static _instance: EntityService;
 
-  private readonly entitiesMap: Record<string, AbstractEntity[]>;
+  private entitiesMap: Record<string, AbstractEntity[]>;
 
   private constructor() {
     this.entitiesMap = {};
@@ -43,14 +45,23 @@ export class EntityService {
     const index = this.entitiesMap[item.type].indexOf(item.entity);
     if (index !== -1) {
       this.entitiesMap[item.type].splice(index, 1);
+
+      if (isEmpty(this.entitiesMap[item.type])) {
+        delete this.entitiesMap[item.type];
+      }
     }
   }
 
   public destroyAllEntities() {
+    // eslint-disable-next-line guard-for-in
     for (const key in this.entitiesMap) {
-      if (Object.hasOwn(this.entitiesMap, key)) {
-        delete this.entitiesMap[key];
+      for (const entity of this.entitiesMap[key]) {
+        entity.destroy();
       }
     }
+
+    setTimeout(() => {
+      this.entitiesMap = {};
+    }, 0);
   }
 }

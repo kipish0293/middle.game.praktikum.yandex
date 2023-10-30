@@ -1,32 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Game, IntroScene } from '@app/engine';
+import { Routes } from '@app/const';
 
 export function EngineCanvas() {
-  const canvasRendered = useRef(false);
-  const reference = useRef<HTMLCanvasElement>(null);
+  const navigate = useNavigate();
+
+  const [initialRender, setInitialRender] = useState<boolean>(false);
   const [game, setGame] = useState<Game | undefined>();
 
   useEffect(() => {
     if (!game) {
       return;
     }
+
     game.start();
     // eslint-disable-next-line consistent-return
-    return () => {
-      game.stop();
-    };
+    return () => game.stop();
   }, [game]);
 
-  useEffect(() => {
-    if (canvasRendered.current) {
+  const onCanvasMount = useCallback((canvasElement: HTMLCanvasElement) => {
+    if (initialRender) {
       return;
     }
-    if (reference.current) {
-      setGame(new Game(reference.current, IntroScene));
-      canvasRendered.current = true;
-    }
-  }, [reference]);
 
-  return <canvas ref={reference} />;
+    if (canvasElement) {
+      setGame(new Game(canvasElement, IntroScene, () => navigate(Routes.GAME_OVER)));
+      setInitialRender(true);
+    }
+  }, []);
+
+  return <canvas ref={onCanvasMount} />;
 }

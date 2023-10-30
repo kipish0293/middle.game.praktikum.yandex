@@ -27,7 +27,7 @@ export function GameOverPage() {
             to={Routes.ROOT}
           >
             <Icons.GoBackIcon />
-            {TEXT.gameOver}
+            {TEXT.mainMenuLink}
           </Link>
         </Button>
       </Flex>

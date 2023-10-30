@@ -1,19 +1,20 @@
 import { debounce } from 'lodash';
+import { getRandomInt } from '@app/utils/getRandomInt';
 
-import { AbstractEntity, InputService, Vector } from '@app/engine';
+import { AbstractEntity, Vector } from '@app/engine';
 import { BulletType } from '@app/types';
 
 import { Directions } from '../../../types/Directions';
-import { KeyCode } from '../../core/InputService/types';
-import tankUp from '../../../assets/images/game/playerTankUp.png';
-import tankLeft from '../../../assets/images/game/playerTankLeft.png';
-import tankRight from '../../../assets/images/game/playerTankRight.png';
-import tankDown from '../../../assets/images/game/playerTankDown.png';
+import tankUp from '../../../assets/images/game/enemyTankUp.png';
+import tankLeft from '../../../assets/images/game/enemyTankLeft.png';
+import tankRight from '../../../assets/images/game/enemyTankRight.png';
+import tankDown from '../../../assets/images/game/enemyTankDown.png';
 import Fire from '../../Actions/Fire';
 import { Entities } from '../types/Entities';
 import { makeBullet } from '../Bullet/makeBullet';
 import CheckCollision from '../../Actions/CheckCollision';
 import Destroy from '../../Actions/Destroy';
+import { Bullet } from '../Bullet/Bullet';
 
 const image = {
   down: tankDown,
@@ -22,35 +23,46 @@ const image = {
   up: tankUp,
 };
 
-export class Player extends AbstractEntity {
-  private inputService: InputService = InputService.getInstance();
-
+export class Enemy extends AbstractEntity {
   private canvasSize: { width: number; height: number } | undefined = undefined;
-
-  public direction: Directions = Directions.RIGHT;
 
   public image: HTMLImageElement = new Image();
 
   public fillColor = 'transparent';
 
+  public allDirections = [Directions.UP, Directions.RIGHT, Directions.DOWN, Directions.LEFT];
+
   private readonly fire: () => void;
+
+  private readonly changeDirectionInterval: NodeJS.Timer;
+
+  private readonly fireInterval: NodeJS.Timer;
 
   private get wallCollision() {
     return CheckCollision.checkCollisionWithType(this, Entities.WALL).collision;
   }
 
   private get bulletCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.BULLET).collision;
+    return CheckCollision.checkCollisionWithType(this, Entities.BULLET);
   }
 
-  private get enemyCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.ENEMY).collision;
-  }
+  public constructor(
+    public direction: Directions,
+    position: Vector,
+    width: number,
+    height: number,
+  ) {
+    super({ position, height, width });
 
-  public constructor() {
-    super({ position: new Vector(1, 1), height: 45, width: 40 });
-    this.image.src = tankUp;
+    this.image.src = image[this.direction];
     this.fire = debounce(this._fire, 40);
+
+    this.changeDirectionInterval = setInterval(() => {
+      const index = getRandomInt(4);
+      this.direction = this.allDirections[index];
+    }, 1000);
+
+    this.fireInterval = setInterval(() => this.fire(), 500);
   }
 
   public render(_: number, context: CanvasRenderingContext2D) {
@@ -75,70 +87,58 @@ export class Player extends AbstractEntity {
     );
   }
 
-  private handleInput() {
-    if (this.inputService.getInputKeyState(KeyCode.Space)) {
-      this.fire();
-    }
-    if (this.inputService.getInputKeyState(KeyCode.KeyW)) {
-      this.direction = Directions.UP;
-    }
-    if (this.inputService.getInputKeyState(KeyCode.KeyS)) {
-      this.direction = Directions.DOWN;
-    }
-    if (this.inputService.getInputKeyState(KeyCode.KeyA)) {
-      this.direction = Directions.LEFT;
-    }
-    if (this.inputService.getInputKeyState(KeyCode.KeyD)) {
-      this.direction = Directions.RIGHT;
-    }
+  public destroy() {
+    clearInterval(this.changeDirectionInterval);
+    clearInterval(this.fireInterval);
 
-    if (
-      this.inputService.getInputKeyState(KeyCode.KeyW) ||
-      this.inputService.getInputKeyState(KeyCode.KeyS) ||
-      this.inputService.getInputKeyState(KeyCode.KeyA) ||
-      this.inputService.getInputKeyState(KeyCode.KeyD)
-    ) {
-      switch (this.direction) {
-        case Directions.RIGHT: {
-          this.move(new Vector(1, 0));
-          break;
-        }
-        case Directions.LEFT: {
-          this.move(new Vector(-1, 0));
-          break;
-        }
-        case Directions.DOWN: {
-          this.move(new Vector(0, 1));
-          break;
-        }
-        case Directions.UP: {
-          this.move(new Vector(0, -1));
-          break;
-        }
-        default: // do nothing
-      }
-    }
+    Destroy.deleteEntity({ type: Entities.ENEMY, entity: this });
   }
 
   private moveBack() {
     switch (this.direction) {
       case Directions.RIGHT: {
         this.move(new Vector(-1, 0));
+        this.direction = Directions.LEFT;
         break;
       }
       case Directions.LEFT: {
         this.move(new Vector(1, 0));
+        this.direction = Directions.RIGHT;
         break;
       }
       case Directions.DOWN: {
         this.move(new Vector(0, -1));
+        this.direction = Directions.UP;
         break;
       }
       case Directions.UP: {
         this.move(new Vector(0, 1));
+        this.direction = Directions.DOWN;
         break;
       }
       // no default
+    }
+  }
+
+  private moveByDirection() {
+    switch (this.direction) {
+      case Directions.RIGHT: {
+        this.move(new Vector(1, 0));
+        break;
+      }
+      case Directions.LEFT: {
+        this.move(new Vector(-1, 0));
+        break;
+      }
+      case Directions.DOWN: {
+        this.move(new Vector(0, 1));
+        break;
+      }
+      case Directions.UP: {
+        this.move(new Vector(0, -1));
+        break;
+      }
+      default: // do nothing
     }
   }
 
@@ -160,14 +160,14 @@ export class Player extends AbstractEntity {
   }
 
   private handleBulletCollision() {
-    if (this.bulletCollision) {
-      this.destroy();
-    }
-  }
+    const { collision, entity } = this.bulletCollision;
 
-  private handleEnemyCollision() {
-    if (this.enemyCollision) {
-      this.moveBack();
+    if (collision) {
+      const { type } = entity.entity as Bullet;
+
+      if (type === BulletType.PLAYER) {
+        this.destroy();
+      }
     }
   }
 
@@ -175,7 +175,7 @@ export class Player extends AbstractEntity {
     Fire.makeShot({
       type: Entities.BULLET,
       entity: makeBullet({
-        type: BulletType.PLAYER,
+        type: BulletType.ENEMY,
         direction: this.direction,
         playerCoords: { x: this.posX, y: this.posY },
         playerWidth: this.width,
@@ -184,17 +184,13 @@ export class Player extends AbstractEntity {
     });
   }
 
-  public destroy() {
-    Destroy.deleteEntity({ type: Entities.PLAYER, entity: this });
-  }
-
   public update() {
     this.image.src = image[this.direction];
 
+    this.moveByDirection();
+
     this.handleBulletCollision();
-    this.handleEnemyCollision();
     this.handleWallCollision();
     this.handleOutOfCanvas();
-    this.handleInput();
   }
 }

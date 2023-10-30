@@ -1,6 +1,7 @@
 import { AbstractScene } from '../AbstractScene/AbstractScene';
 import { InputService } from '../InputService/InputService';
 import { EntityService } from '../EntityService/EntityService';
+import { Entities } from '../../entities/types/Entities';
 
 export class Game {
   private readonly _canvas: HTMLCanvasElement;
@@ -11,9 +12,12 @@ export class Game {
 
   private _stopped = false;
 
+  private _onGameEndCb: () => void;
+
   public constructor(
     canvas: HTMLCanvasElement,
     InitialScene: new (game: Game) => AbstractScene,
+    onGameEndCallback: () => void,
     width = 800,
     height = 600,
   ) {
@@ -22,12 +26,16 @@ export class Game {
     const context = this._canvas.getContext('2d');
     this._canvas.width = width;
     this._canvas.height = height;
+
     if (!context) {
       throw new Error('Canvas context should exist.');
     }
+
     this._context = context;
     this._activeScene = new InitialScene(this);
     this._context.imageSmoothingEnabled = false;
+
+    this._onGameEndCb = onGameEndCallback;
   }
 
   public getContext() {
@@ -50,12 +58,22 @@ export class Game {
         this.afterGameHasStopped();
         return;
       }
+
       now = performance.now();
       dt += Math.min(1, (now - last) / 1000);
+
+      const entitiesMap = EntityService.getInstance().getEntitiesMap();
+
+      if (!entitiesMap[Entities.PLAYER]) {
+        this.stop();
+        this._onGameEndCb();
+      }
+
       while (dt > step) {
         dt -= step;
         this.update(step);
       }
+
       last = now;
 
       this.render(dt);
@@ -87,6 +105,7 @@ export class Game {
   }
 
   private afterGameHasStopped() {
+    this._activeScene.destroy();
     InputService.getInstance().destroy();
     EntityService.getInstance().destroyAllEntities();
   }

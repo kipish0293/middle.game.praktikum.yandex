@@ -1,6 +1,8 @@
 import 'jest-canvas-mock';
 import { AbstractScene, Game } from '@app/engine';
 
+const mockCallback = () => console.log('mock');
+
 class MockScene extends AbstractScene {
   public constructor() {
     super();
@@ -36,13 +38,13 @@ describe('Game', () => {
   });
 
   it('create an instance of Game', () => {
-    game = new Game(document.createElement('canvas'), MockScene);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
 
     expect(game).toBeInstanceOf(Game);
   });
 
   it('stop the game loop', () => {
-    game = new Game(document.createElement('canvas'), MockScene);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
 
     game?.start();
     game?.stop();
@@ -52,7 +54,7 @@ describe('Game', () => {
 
   it('call render method', () => {
     let renderCalled = false;
-    game = new Game(document.createElement('canvas'), MockScene);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
 
     if (game) {
       game.render = () => {

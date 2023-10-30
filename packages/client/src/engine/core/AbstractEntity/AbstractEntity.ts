@@ -57,4 +57,6 @@ export abstract class AbstractEntity {
   public abstract update(deltaTime: number): void;
 
   public abstract render(deltaTime: number, context: CanvasRenderingContext2D): void;
+
+  public abstract destroy(): void;
 }

@@ -29,8 +29,7 @@ export const makeWalls = (
     y: startPosition.y,
   };
 
-  const coordsArray: Array<Coords> = [];
-  coordsArray.push(startPosition);
+  const coordsArray: Array<Coords> = [startPosition];
 
   let direction = Directions.RIGHT;
 
@@ -60,16 +59,16 @@ export const makeWalls = (
       right: false,
       bottom: false,
     };
-    if (currentPosition.y + height > maxY) {
+    if (currentPosition.y + 2 * height > maxY) {
       atBorder.bottom = true;
     }
-    if (currentPosition.y - height < 0) {
+    if (currentPosition.y - height < height) {
       atBorder.top = true;
     }
     if (currentPosition.x - width < width) {
       atBorder.left = true;
     }
-    if (currentPosition.x + width > maxX) {
+    if (currentPosition.x + 2 * width > maxX) {
       atBorder.right = true;
     }
     const atRightBorder = atBorder.right && !atBorder.top && !atBorder.bottom;
