@@ -1,17 +1,18 @@
+import { BestPlayer } from './BestPlayer';
 import { ConsoleIcon } from './ConsoleIcon';
 import { CreateItemIcon } from './CreateItemIcon';
 import { Crown } from './Crown';
 import { CupIcon } from './CupIcon';
+import { EditIcon } from './EditIcon';
 import { ForumIcon } from './ForumIcon';
 import { FullScreenOffIcon } from './FullScreenOffIcon';
 import { FullScreenOnIcon } from './FullScreenOnIcon';
 import { GoBackIcon } from './GoBackIcon';
+import { GoBackProfileIcon } from './GoBackProfileIcon';
 import { PlayerIcon } from './PlayerIcon';
 import { TrashItemIcon } from './TrashItemIcon';
-import { EditIcon } from './EditIcon';
-import { GoBackProfileIcon } from './GoBackProfileIcon';
-import { BestPlayer } from './BestPlayer';
 import { UserHandUpIcon } from './UserHandUpIcon';
+import { Yandex } from './Yandex';
 
 export const Icons = {
   ConsoleIcon,
@@ -28,4 +29,5 @@ export const Icons = {
   GoBackProfileIcon,
   BestPlayer,
   UserHandUpIcon,
+  Yandex,
 };

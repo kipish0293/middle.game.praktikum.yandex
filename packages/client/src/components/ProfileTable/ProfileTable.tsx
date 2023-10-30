@@ -2,6 +2,7 @@ import {
   Button,
   Flex,
   Heading,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -10,15 +11,14 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Image,
 } from '@chakra-ui/react';
 import { ChangeEvent, useRef } from 'react';
 
 import { ProfileItem, ProfileTableControls } from '@app/components';
+import { FieldName, ProfileFields, staticBaseUrl } from '@app/const';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { Field, User } from '@app/types';
-import { ProfileFields, staticBaseUrl, FieldName } from '@app/const';
 import { logout } from '@app/store';
+import { Field, User } from '@app/types';
 
 const profileTitleTexts = {
   title: 'Player',
@@ -69,7 +69,7 @@ export function ProfileTable({
         <ProfileItem
           key={field.name}
           name={field?.label ?? ''}
-          value={user?.phone.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5') || ''}
+          value={user?.phone?.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5') || ''}
         />
       );
     }

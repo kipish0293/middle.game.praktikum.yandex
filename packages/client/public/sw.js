@@ -21,10 +21,10 @@ const urlsForProd = [
 
 let URLS;
 
-if (PROD_MODE) {
-  URLS = urlsForProd;
-} else {
+if (process.env.NODE_ENV === 'development') {
   URLS = urlsForDev;
+} else {
+  URLS = urlsForProd;
 }
 
 function timeout(delay) {
@@ -55,7 +55,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', function (event) {
   const request = event.request;
 
-  if (request.method === 'GET') {
+  if (request.method === 'GET' && process.env.NODE_ENV !== 'development') {
     event.respondWith(
       caches.open(CACHE_NAME).then(function (cache) {
         return Promise.race([timeout(300), fetch(event.request)])

@@ -2,15 +2,15 @@
   "name": "client",
   "version": "0.0.0",
   "scripts": {
-    "dev": "tsc && vite",
-    "build": "tsc && vite build",
-    "build:ssr": "tsc && vite build --config vite.config.ssr.js",
+    "dev": "cross-env NODE_ENV=development tsc && vite",
+    "build": "cross-env NODE_ENV=production tsc && vite build",
+    "build:ssr": "cross-env NODE_ENV=production tsc && vite build --config vite.config.ssr.js",
     "preview": "vite preview",
     "lint": "eslint . && stylelint ./src/**/*.css",
     "format": "prettier --write .",
     "test": "jest ./",
     "serv": "node server.js",
-    "test_dev": "jest --watch --verbose",
+    "test_dev": "cross-env NODE_ENV=development jest --watch --verbose",
     "server": "node server.js"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "@fontsource/ubuntu-mono": "^5.0.12",
     "@hookform/resolvers": "^3.3.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
     "framer-motion": "^10.16.4",
     "joi": "^17.10.2",

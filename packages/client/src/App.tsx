@@ -1,16 +1,16 @@
 import './App.css';
 
+import { registerFullScreenEvents } from '@app/utils/fullScreenApi';
+import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { Center, ChakraProvider, Spinner } from '@chakra-ui/react';
 import '@fontsource/ubuntu-mono/cyrillic.css';
 import '@fontsource/ubuntu-mono/latin.css';
-import { Route, Routes } from 'react-router-dom';
-import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { useEffect, useRef } from 'react';
-import { registerFullScreenEvents } from '@app/utils/fullScreenApi';
+import { Route, Routes } from 'react-router-dom';
 
+import { ErrorBoundary, Layout, ProtectedRoute } from '@app/components';
 import { Routes as RouteNames } from '@app/const';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { ErrorBoundary, Layout, ProtectedRoute } from '@app/components';
 import {
   ForumPage,
   GameOverPage,
@@ -58,7 +58,7 @@ export function App() {
         ) : (
           <Routes>
             <Route path={RouteNames.ROOT} element={<ProtectedRoute />}>
-              <Route path={RouteNames.LOGIN} element={<LoginPage />} />
+              <Route path={RouteNames.SIGNIN} element={<LoginPage />} />
               <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
               <Route path={RouteNames.GAME} element={<GamePage />} />
               <Route index element={<MainPage />} />

@@ -1,5 +1,5 @@
-import { useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { protectedRoutes, Routes } from '../const/routes';
 
@@ -24,7 +24,7 @@ export const useProtectedRoute = () => {
     }),
     [isLoggedIn, pathname],
   );
-  const isLoginPage = pathname === Routes.LOGIN;
+  const isLoginPage = pathname === Routes.SIGNIN;
   const isMainPage = pathname === Routes.ROOT;
   const isProtectedRouteLocation = protectedRoutes.includes(pathname);
   const redirectToLogin = !auth && isProtectedRouteLocation && !isLoginPage && !pending;
@@ -34,7 +34,7 @@ export const useProtectedRoute = () => {
     redirect.shouldRedirect = true;
   }
   if (redirectToLogin) {
-    redirect.to = Routes.LOGIN;
+    redirect.to = Routes.SIGNIN;
     redirect.shouldRedirect = true;
   }
   return { redirect };

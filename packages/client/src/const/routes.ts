@@ -1,6 +1,6 @@
 export const enum Routes {
   ROOT = '/',
-  LOGIN = '/login',
+  SIGNIN = '/signin',
   REGISTER = '/register',
   GAME = '/game',
   PROFILE = '/profile',
