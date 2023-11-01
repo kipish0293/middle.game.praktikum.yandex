@@ -4,5 +4,5 @@ export { loginSchema, editProfileSchema, signupSchema } from './validation';
 export { baseUrl, staticBaseUrl } from './api';
 export { FieldName } from './fieldName';
 export { Routes } from './routes';
-export { TEXT } from './texts';
+export { TEXT, teamName } from './texts';
 export { BACKGROUND_COLOR } from './colors';

@@ -44,12 +44,10 @@ export class BaseApi {
     return response;
   }
 
-  public async post({ route, data }: { route: Url; data?: RequestData }) {
+  public async post({ route, data }: { route?: Url; data?: RequestData }) {
     try {
-      const response = await fetch(
-        `${this._baseUrl}/${route}`,
-        this.getFetchOptions(Method.POST, data),
-      ).catch((error) => {
+      const url = route ? `${this._baseUrl}/${route}` : this._baseUrl;
+      const response = await fetch(url, this.getFetchOptions(Method.POST, data)).catch((error) => {
         throw new Error(error);
       });
       return await this.checkResponse(response).text();

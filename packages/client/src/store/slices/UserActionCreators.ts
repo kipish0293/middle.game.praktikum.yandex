@@ -9,7 +9,7 @@ const userApi = new UserApi();
 const authApi = new AuthApi();
 
 export const getUser = createAsyncThunk('getUser', async () => authApi.getUser());
-// запрос для получения куков
+
 export const signin = createAsyncThunk('signin', async (loginData: LoginData) =>
   authApi.signin(loginData),
 );

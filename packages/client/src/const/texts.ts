@@ -11,3 +11,4 @@ export const TEXT = {
   registerHeading: 'Welcome, hero!',
   logout: 'LOGOUT',
 };
+export const teamName = 'Code Alchemists';

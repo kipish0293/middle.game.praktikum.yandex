@@ -5,7 +5,8 @@ import { toggleFullScreen } from '@app/utils/fullScreenApi';
 import { EngineCanvas, Icons } from '@app/components';
 import { GameState } from '@app/types';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { gameStateActions } from '@app/store';
+import { gameStateActions, sendScore } from '@app/store';
+import { teamName } from '@app/const';
 
 import { useDocument } from '../../hooks/useDocument';
 
@@ -30,9 +31,19 @@ function GameNotStartedPageView() {
 
 function GameStaredPageView() {
   const dispatch = useAppDispatch();
-
+  // const { user } = useAppSelector((state) => state.user);
+  const score = useAppSelector((state) => state.score);
   const onStopClick = () => {
+    const sendScoreData = {
+      data: {
+        score: score.score,
+      },
+      ratingFieldName: 'score',
+      teamName,
+    };
+
     dispatch(gameStateActions.setGameState(GameState.Stopped));
+    dispatch(sendScore(sendScoreData));
   };
 
   return (

@@ -39,7 +39,7 @@ export function LeaderboardItem({ place, player, score, background, isHeader, ic
         {icon}
       </Box>
       <LeaderboardItemContent
-        value={formattedPlayer.toUpperCase()}
+        value={formattedPlayer}
         width="sm"
         placeLetterSpacing={isHeader ? '0.2rem' : ''}
         marginRight="40px"

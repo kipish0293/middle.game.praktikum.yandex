@@ -1,3 +1,4 @@
+export { UserApi } from './userApi';
 export { AuthApi } from './authApi';
 export { OauthApi } from './oauthApi';
-export { UserApi } from './userApi';
+export { GameApi } from './gameApi';

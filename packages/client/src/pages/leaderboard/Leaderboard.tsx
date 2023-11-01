@@ -1,42 +1,25 @@
 import { Box, Flex, Heading, useBreakpointValue } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 import { Icons, LeaderboardItem } from '@app/components';
-
-const data = [
-  {
-    place: 1,
-    player: 'kot',
-    score: 22_000,
-  },
-  {
-    place: 2,
-    player: 'cowboy',
-    score: 18_500,
-  },
-  {
-    place: 3,
-    player: 'ROOTMAN',
-    score: 9800,
-  },
-  {
-    place: 4,
-    player: 'JASTIN',
-    score: 7200,
-  },
-  {
-    place: 5,
-    player: 'KROT_KASATKA',
-    score: 5287,
-  },
-  {
-    place: 6,
-    player: 'KIOSK',
-    score: 1800,
-  },
-];
+import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { getLeaderboard } from '@app/store';
+import { Leaderbord } from '@app/types';
 
 export function LeaderboardPage() {
+  const dispatch = useAppDispatch();
   const headingSize = useBreakpointValue({ base: '3xl', md: '4xl', lg: '7xl' });
+  const leaderboard = useAppSelector((state) => state.leaderboard.data);
+
+  useEffect(() => {
+    const leaderboardData = {
+      ratingFieldName: 'score',
+      cursor: 0,
+      limit: 6,
+    };
+    dispatch(getLeaderboard(leaderboardData));
+  }, []);
+
   return (
     <Box display="flex" alignItems="flex-start" height="100vh">
       <Box margin="0 auto">
@@ -68,7 +51,7 @@ export function LeaderboardPage() {
             background="violet"
             isHeader
           />
-          {data.map((item, index) => (
+          {leaderboard?.map((item: Leaderbord, index: number) => (
             <LeaderboardItem
               isHeader={false}
               key={item.place}
