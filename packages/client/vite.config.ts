@@ -18,6 +18,7 @@ export default defineConfig(() => {
   return {
     define: {
       __SERVER_PORT__: process.env.SERVER_PORT,
+      self: this,
     },
     plugins: [
       react(),

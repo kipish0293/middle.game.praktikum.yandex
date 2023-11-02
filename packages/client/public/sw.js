@@ -40,9 +40,9 @@ function timeout(delay) {
   });
 }
 
-self.addEventListener('install', (event) => {
+this.addEventListener('install', (event) => {
   console.log('install');
-  self.skipWaiting();
+  this.skipWaiting();
   event
     .waitUntil(
       caches.open(CACHE_NAME).then((cache) => {
@@ -52,7 +52,7 @@ self.addEventListener('install', (event) => {
     .catch((err) => console.log(err));
 });
 
-self.addEventListener('fetch', function (event) {
+this.addEventListener('fetch', function (event) {
   const request = event.request;
 
   if (request.method === 'GET' && process.env.NODE_ENV !== 'development') {
@@ -81,9 +81,9 @@ self.addEventListener('fetch', function (event) {
   }
 });
 
-self.addEventListener('activate', function (event) {
+this.addEventListener('activate', function (event) {
   console.log('activate');
-  if (self.clients && clients.claim) {
+  if (this.clients && clients.claim) {
     clients.claim();
   }
   event.waitUntil(

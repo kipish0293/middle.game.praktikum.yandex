@@ -1,10 +1,11 @@
 // For correct redux slice working
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
 import { createLeaderboard } from '@app/utils/createLeaderboard';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { getLeaderboard } from '@app/store';
 import { Leaderbord } from '@app/types';
+
+import { getLeaderboard } from './GameActionCreators';
 
 type LeaderboardState = {
   data: Leaderbord[] | undefined;

@@ -1,13 +1,13 @@
-import dotenv from 'dotenv';
-import { fileURLToPath, URL } from 'url';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import postcssAutoprefixer from 'autoprefixer';
+import dotenv from 'dotenv';
+import path from 'path';
 import postcssVars from 'postcss-css-variables';
 import postcssImport from 'postcss-import';
 import postcssNested from 'postcss-nested';
+import { fileURLToPath, URL } from 'url';
+import { defineConfig } from 'vite';
 import { modifyFilePlugin } from './vite-plugin-modify-file';
-import path from 'path';
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ export default defineConfig(() => {
     build: {
       assetsDir: 'src',
       lib: {
-        entry: path.resolve(__dirname, 'src/ssr.tsx'),
+        entry: path.resolve(__dirname, 'ssr.tsx'),
         formats: ['cjs'],
         name: 'client',
       },
@@ -44,7 +44,7 @@ export default defineConfig(() => {
             }
             return 'src/[name].[hash].[extname]';
           },
-          dir: 'dist-ssr',
+          dir: 'ssr-dist',
         },
         external: ['react', '@emotion/react', '@emotion/styled'],
       },

@@ -7,6 +7,17 @@
 5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 6. Выполните команду `yarn serv --scope=client` чтобы запустить сервер статики клиента (для разработки)
 
+### Как запустить в режиме SSR в деве?
+
+1. в папке packages/server запустите скрипт yarn dev
+
+### Как запустить в режиме SSR в продакшен?
+
+1. в папке packages/client запустите скрипт yarn build:ssr
+2. в папке packages/client запустите скрипт yarn build
+3. в папке packages/server запустите скрипт yarn build
+4. в папке packages/server запустите скрипт yarn previev
+
 ### Как добавить зависимости?
 
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
@@ -80,6 +91,6 @@
 
 [Ссылка](packages/client/src/engine/README.md)
 
-
 ## Скринкаст для первого командного зачета
+
 [Ссылка](https://www.youtube.com/watch?v=VK6FW-lDsPw)

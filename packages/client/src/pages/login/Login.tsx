@@ -16,7 +16,10 @@ export function LoginPage() {
   const [searchParameters] = useSearchParams();
   const [loadPage, setLoadPage] = useState(false);
   const reference = useRef(null);
-  const { origin } = window.location;
+  let origin: Location | string = '';
+  if (typeof window !== 'undefined') {
+    origin = window.location.origin;
+  }
   const code = searchParameters.get('code');
 
   const oauthLogin = async (error: React.MouseEvent<HTMLElement>) => {
@@ -29,8 +32,10 @@ export function LoginPage() {
 
       dispatch(userSliceActions.setServiceId(serviceId));
 
-      // eslint-disable-next-line max-len
-      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${origin}/signin`;
+      if (typeof window !== 'undefined') {
+        // eslint-disable-next-line max-len
+        window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${origin}/signin`;
+      }
     } catch (error_) {
       console.error(error_);
     }

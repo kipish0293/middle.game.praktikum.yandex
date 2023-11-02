@@ -34,6 +34,6 @@
     }
   },
   "types": ["@types/jest"],
-  "include": ["src/**/*", "jest.config.ts", "public/**/*"],
+  "include": ["src/**/*", "jest.config.ts", "public/**/*", "ssr.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-negated-condition */
 import { BaseApi } from './baseApi';
 
 type PostData = {
@@ -5,7 +6,10 @@ type PostData = {
   redirect_uri: string;
 };
 
-const { origin } = window.location;
+let origin: Location | string = '';
+if (typeof window !== 'undefined') {
+  origin = window.location.origin;
+}
 
 const enum OauthApiRoutes {
   GET_OAUTH_SERVICE_ID = 'oauth/yandex/service-id',
