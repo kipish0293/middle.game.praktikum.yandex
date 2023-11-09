@@ -9,6 +9,7 @@ import './index.css';
 import { App } from './App';
 
 const store = setupStore();
+
 const root = document.querySelector('#root') as HTMLElement;
 ReactDOM.hydrateRoot(
   root,

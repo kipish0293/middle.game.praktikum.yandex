@@ -12,8 +12,21 @@ const rootReducer = combineReducers({
   leaderboard: LeaderboardReducer,
 });
 
+type State = ReturnType<typeof rootReducer>;
+
+let preloadedState: State | undefined;
+
+if (typeof window !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  preloadedState = { ...window.__PRELOADED_STATE__ };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  delete window.__PRELOADED_STATE__;
+}
+
 export function setupStore() {
-  return configureStore({ reducer: rootReducer });
+  return configureStore({ reducer: rootReducer, preloadedState: preloadedState || {} });
 }
 
 export type RootState = ReturnType<typeof rootReducer>;
