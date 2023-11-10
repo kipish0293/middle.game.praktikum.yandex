@@ -114,7 +114,7 @@ export function GamePage() {
         icon={fullScreen ? <Icons.FullScreenOffIcon /> : <Icons.FullScreenOnIcon />}
         onClick={toggleFullScreen}
       />
-      {PageView[gameState.gameSate]}
+      {PageView[gameState.gameState]}
     </Box>
   );
 }

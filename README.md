@@ -7,16 +7,45 @@
 5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 6. Выполните команду `yarn serv --scope=client` чтобы запустить сервер статики клиента (для разработки)
 
+### Где взять файл postgres.env с переменными для подключения к БД?
+
+1. Создайте сами в корне проекта рядом с docker-compose.yaml файл postgres.env
+   внутри 2 переменные:
+   POSTGRES_USER=admin
+   POSTGRES_PASSWORD=1234
+2. Для прода будет общий один файл о котором мы договоримся позднее.
+
+### Как запустить docker приложения?
+
+1. Сборка контейнера - docker build -f Dockerfile.server -t server .
+2. Запуск контейнера - docker run -p 3000:3000 -d server
+3. Посмотреть список запущенных контейнеров - docker ps
+4. Остановка контейнера - docker stop -t 0 {ed22, это первые уникальные цифры контейнера из 3 пункта}
+5. Удаление образа - docker rmi 1721c0(Где 1721c0 - идентификатор сервиса из docker ps)
+
+### Как запустить docker-compose?
+
+1. docker-compose build
+2. docker-compose up (если не в фоне)
+   2.1. docker-compose up -d (если в фоне)
+3. если необходимо остановить процесс - Ctrl+C в терминале где он запущен (если не в фоне)
+4. остановить один конкретный контейнер - docker-compose stop %service-name%
+5. остановить все контейнеры - docker-compose stop
+6. запуск конкретного контейнера - docker-compose start %service-name%
+7. посмотреть запущенные контейнеры - docker-compose ps --services
+8. удаление всех контейнеров - docker-compose down
+9. удаление одного контейнера - docker-compose down %service-name%
+10. Удаление образа - docker rmi 1721c0(Где 1721c0 - идентификатор сервиса из docker ps)
+
 ### Как запустить в режиме SSR в деве?
 
 1. в папке packages/server запустите скрипт yarn dev
 
 ### Как запустить в режиме SSR в продакшен?
 
-1. в папке packages/client запустите скрипт yarn build:ssr
-2. в папке packages/client запустите скрипт yarn build
-3. в папке packages/server запустите скрипт yarn build
-4. в папке packages/server запустите скрипт yarn previev
+1. в папке packages/client запустите скрипт yarn build
+2. в папке packages/server запустите скрипт yarn build
+3. в папке packages/server запустите скрипт yarn previev
 
 ### Как добавить зависимости?
 

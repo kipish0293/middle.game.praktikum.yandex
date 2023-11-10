@@ -9,6 +9,20 @@ export default async function preloadState() {
     }
     return response.json();
   });
-  console.log(user);
-  return { user: { user }, score: {}, gameState: {}, leaderboard: {} };
+  return {
+    user: { user, serviceId: undefined, isLoading: false, error: '', isLoggedIn: 'pending' },
+    score: {
+      score: 0,
+      isLoading: false,
+      error: '',
+    },
+    gameState: {
+      gameState: 0,
+    },
+    leaderboard: {
+      data: undefined,
+      isLoading: false,
+      error: '',
+    },
+  };
 }

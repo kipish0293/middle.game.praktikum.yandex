@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameState } from '@app/types';
 
 type GameStateState = {
-  gameSate: GameState;
+  gameState: GameState;
 };
 
 const initialState: GameStateState = {
-  gameSate: GameState.NotStarted,
+  gameState: GameState.NotStarted,
 };
 
 export const gameStateSlice = createSlice({
@@ -15,7 +15,7 @@ export const gameStateSlice = createSlice({
   initialState,
   reducers: {
     setGameState(_state, action: PayloadAction<GameState>) {
-      return { gameSate: action.payload };
+      return { gameState: action.payload };
     },
   },
 });

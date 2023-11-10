@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsc && vite",
-    "build": "cross-env NODE_ENV=production tsc && vite build",
-    "build:ssr": "cross-env NODE_ENV=production tsc && vite build --config vite.config.ssr.js",
+    "build": "cross-env NODE_ENV=production tsc && vite build --config vite.config.ssr.js && cross-env NODE_ENV=production tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . && stylelint ./src/**/*.css",
     "format": "prettier --write .",
