@@ -10,14 +10,23 @@ export class Game {
 
   private _activeScene: AbstractScene;
 
+  private bgSound = new Audio('sounds/game.mp3');
+
+  private gameOverSound = new Audio('sounds/gameOver.mp3');
+
+  private gameWinSound = new Audio('sounds/gameWin.mp3');
+
   private _stopped = false;
 
-  private _onGameEndCb: () => void;
+  private _onGameOverCb: () => void;
+
+  private _onGameWinCb: () => void;
 
   public constructor(
     canvas: HTMLCanvasElement,
     InitialScene: new (game: Game) => AbstractScene,
-    onGameEndCallback: () => void,
+    onGameOverCallback: () => void,
+    onGameWinCallback: () => void,
     width = 800,
     height = 600,
   ) {
@@ -35,7 +44,11 @@ export class Game {
     this._activeScene = new InitialScene(this);
     this._context.imageSmoothingEnabled = false;
 
-    this._onGameEndCb = onGameEndCallback;
+    this.bgSound.loop = true;
+    this.bgSound.play();
+
+    this._onGameOverCb = onGameOverCallback;
+    this._onGameWinCb = onGameWinCallback;
   }
 
   public getContext() {
@@ -62,13 +75,6 @@ export class Game {
       now = performance.now();
       dt += Math.min(1, (now - last) / 1000);
 
-      const entitiesMap = EntityService.getInstance().getEntitiesMap();
-
-      if (!entitiesMap[Entities.PLAYER]) {
-        this.stop();
-        this._onGameEndCb();
-      }
-
       while (dt > step) {
         dt -= step;
         this.update(step);
@@ -77,6 +83,25 @@ export class Game {
       last = now;
 
       this.render(dt);
+
+      const entitiesMap = EntityService.getInstance().getEntitiesMap();
+
+      if (!entitiesMap[Entities.PLAYER]) {
+        this.stop();
+        this.gameOverSound.play();
+        this._onGameOverCb();
+      }
+
+      if (!entitiesMap[Entities.ENEMY]) {
+        this.bgSound.pause();
+        this.gameWinSound.play();
+
+        this.gameWinSound.addEventListener('ended', () => {
+          this.stop();
+          this._onGameWinCb();
+        });
+      }
+
       requestAnimationFrame(gameLoop);
     };
 
@@ -108,5 +133,7 @@ export class Game {
     this._activeScene.destroy();
     InputService.getInstance().destroy();
     EntityService.getInstance().destroyAllEntities();
+
+    this.bgSound.pause();
   }
 }

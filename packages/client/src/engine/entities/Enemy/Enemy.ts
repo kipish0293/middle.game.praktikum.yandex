@@ -32,6 +32,8 @@ export class Enemy extends AbstractEntity {
 
   public allDirections = [Directions.UP, Directions.RIGHT, Directions.DOWN, Directions.LEFT];
 
+  private destroySound = new Audio('sounds/enemyDestroy.mp3');
+
   private readonly fire: () => void;
 
   private readonly changeDirectionInterval: NodeJS.Timer;
@@ -167,6 +169,7 @@ export class Enemy extends AbstractEntity {
 
       if (type === BulletType.PLAYER) {
         this.destroy();
+        this.destroySound.play();
       }
     }
   }

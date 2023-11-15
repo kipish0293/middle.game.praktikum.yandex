@@ -18,6 +18,8 @@ export class Bullet extends AbstractEntity {
 
   public type: BulletType;
 
+  private shotSound = new Audio('sounds/bullet.mp3');
+
   public constructor(
     direction: Directions,
     coords: Coords,
@@ -30,6 +32,10 @@ export class Bullet extends AbstractEntity {
     this.image.src = bullet;
     this.direction = direction;
     this.type = type;
+
+    if (this.type === BulletType.PLAYER) {
+      this.shotSound.play();
+    }
   }
 
   public render(_: number, context: CanvasRenderingContext2D) {

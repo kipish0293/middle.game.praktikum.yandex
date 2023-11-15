@@ -38,13 +38,13 @@ describe('Game', () => {
   });
 
   it('create an instance of Game', () => {
-    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback, mockCallback);
 
     expect(game).toBeInstanceOf(Game);
   });
 
   it('stop the game loop', () => {
-    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback, mockCallback);
 
     game?.start();
     game?.stop();
@@ -54,7 +54,7 @@ describe('Game', () => {
 
   it('call render method', () => {
     let renderCalled = false;
-    game = new Game(document.createElement('canvas'), MockScene, mockCallback);
+    game = new Game(document.createElement('canvas'), MockScene, mockCallback, mockCallback);
 
     if (game) {
       game.render = () => {
