@@ -1,4 +1,6 @@
 /* eslint-disable unicorn/no-negated-condition */
+import { localServerUrl } from '@app/const';
+
 import { BaseApi } from './baseApi';
 
 type PostData = {
@@ -16,7 +18,7 @@ const enum OauthApiRoutes {
   POST_OAUTH_SERVICE = 'oauth/yandex',
 }
 
-const baseUserApi = new BaseApi('', true);
+const baseUserApi = new BaseApi({ url: '', apiBaseUrl: localServerUrl, withCredentials: true });
 
 export class OauthApi {
   public async getOauthServiceId() {

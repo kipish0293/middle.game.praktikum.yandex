@@ -1,4 +1,5 @@
 import { LoginData, SignUpData } from '@app/types';
+import { localServerUrl } from '@app/const';
 
 import { BaseApi } from './baseApi';
 
@@ -10,7 +11,11 @@ const enum AuthApiRoutes {
   LOGOUT = 'logout',
 }
 
-const baseUserApi = new BaseApi(AuthApiRoutes.BASE, true);
+const baseUserApi = new BaseApi({
+  url: AuthApiRoutes.BASE,
+  apiBaseUrl: localServerUrl,
+  withCredentials: true,
+});
 
 export class AuthApi {
   public async signin(loginData: LoginData) {
@@ -18,6 +23,7 @@ export class AuthApi {
   }
 
   public async getUser() {
+    console.log(baseUserApi);
     return baseUserApi.get({ route: AuthApiRoutes.USER });
   }
 

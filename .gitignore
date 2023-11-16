@@ -4,5 +4,6 @@ postgres.env
 .idea
 .vscode
 dist
-tmp
+tmp/
 *.log
+postgresdata

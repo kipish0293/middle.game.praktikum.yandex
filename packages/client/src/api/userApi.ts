@@ -1,3 +1,5 @@
+import { localServerUrl } from '@app/const';
+
 import { AnyObject } from '../types/AnyObject';
 
 import { BaseApi } from './baseApi';
@@ -10,7 +12,11 @@ const enum UserApiRoutes {
   AVATAR = 'profile/avatar',
 }
 
-const baseUserApi = new BaseApi(UserApiRoutes.BASE, true);
+const baseUserApi = new BaseApi({
+  url: UserApiRoutes.BASE,
+  apiBaseUrl: localServerUrl,
+  withCredentials: true,
+});
 
 export class UserApi {
   public async changeProfile(userData: FormDataUser) {

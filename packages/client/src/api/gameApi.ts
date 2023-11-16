@@ -1,3 +1,5 @@
+import { localServerUrl } from '@app/const';
+
 import { AnyObject } from '../types/AnyObject';
 
 import { BaseApi } from './baseApi';
@@ -7,7 +9,11 @@ const enum GameApiRoutes {
   ALL = 'all',
 }
 
-const baseGameApi = new BaseApi(GameApiRoutes.BASE, true);
+const baseGameApi = new BaseApi({
+  url: GameApiRoutes.BASE,
+  apiBaseUrl: localServerUrl,
+  withCredentials: true,
+});
 
 export class GameApi {
   public async sendScore(score: AnyObject) {

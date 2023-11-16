@@ -123,3 +123,21 @@
 ## Скринкаст для первого командного зачета
 
 [Ссылка](https://www.youtube.com/watch?v=VK6FW-lDsPw)
+
+## API Форума
+Для доступа к api форума требуется, чтобы в заголоках запроса была кука авторизации.
+  ### Thread
+1. post /api/forum/thread  body: {title} - создаёт тему форума за авторством автора, возвращает созданнуют тему
+2. get /api/forum/thread/ - возвращает все темы
+3. delete /api/forum/:threadId - удаляет тему из БД
+4. put /:threadId/edit - body: {title} изменяет заголовок темы
+  ### Answer
+1. get /api/forum/:threadId - возвращает все ответы в теме
+2. post /api/forum/answer body: {'title', 'text', 'thread'} - создаёт ответ и возвращает созданный ответ
+3. delete /api/forum/:answerId - удаляет ответ из БД
+4. put /api/forum/:threadId/edit body: {text} изменяет текст ответа
+  ### Comment
+1. get /api/forum/comment/:answerId - массив комментов с детьми
+2. post /api/forum/comment body: {'text', 'answer', 'parentComment'} создаёт коммент и возвращает его. По умолчанию parentComment - null, при обозначении parentComment - создаёт child коммент
+3. delete /api/forum/:commentId - *не удаляет коммент*, а помечает его как deleted, чтобы не нарушать дерево комментов
+4. put /api/forum/:threadId/edit body: {'text'} - изменяет текст коммента

@@ -1,18 +1,6 @@
-import fetch from 'cross-fetch';
-
-const baseUrl = 'https://ya-praktikum.tech/api/v2/';
-
-export default async function preloadState() {
-  const user = await fetch(`${baseUrl}/auth/user`, {
-    credentials: 'include',
-  }).then((response) => {
-    if (!response.ok) {
-      return {};
-    }
-    return response.json();
-  });
+export default async function preloadState(user: unknown) {
   return {
-    user: { user, serviceId: undefined, isLoading: false, error: '', isLoggedIn: 'pending' },
+    user: { user, serviceId: undefined, isLoading: false, error: '', isLoggedIn: 'true' },
     score: {
       score: 0,
       isLoading: false,

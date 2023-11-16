@@ -4,25 +4,50 @@
 /* eslint-disable unicorn/no-await-expression-member */
 /* eslint-disable unicorn/prefer-top-level-await */
 /* eslint-disable unicorn/prefer-module */
+/* eslint-disable import/no-extraneous-dependencies */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import process from 'node:process';
 
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import type { ViteDevServer } from 'vite';
 import { createServer as createViteServer } from 'vite';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import type { RequestWithUser } from 'RequestWithUser';
+import bodyParser from 'body-parser';
+import jsesc from 'jsesc';
 
 import preloadState from './preloadState';
+import { dbConnect } from './db/connect';
+import { authMiddleware } from './middlewares/authMiddleware';
+import { errorHandler } from './middlewares/errorHandler';
+import { threadRoutes } from './routes/thread';
+import { answerRoutes } from './routes/answer';
+import { commentRoutes } from './routes/comment';
 
 dotenv.config();
 
 const isDevelopment = () => process.env.NODE_ENV === 'development';
+const { YANDEX_API_URL, SERVER_PORT } = process.env;
 
 const startServer = async () => {
   const app = express();
   app.use(cors());
-  const port = Number(process.env.SERVER_PORT) || 3000;
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  const port = Number(SERVER_PORT) || 3000;
+
+  app.use(
+    '/api/v2/',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: { '*': '' },
+      target: YANDEX_API_URL,
+    }),
+  );
 
   let vite: ViteDevServer | undefined;
   let distributionPath = '/';
@@ -43,6 +68,8 @@ const startServer = async () => {
     app.use(vite.middlewares);
   }
 
+  app.use(authMiddleware);
+
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
@@ -51,7 +78,11 @@ const startServer = async () => {
     app.use('/src', express.static(path.resolve(distributionPath, 'src'), { index: false }));
   }
 
-  app.use('*', async (request, res, next) => {
+  app.use('/api/forum/thread', threadRoutes);
+  app.use('/api/forum/answer', answerRoutes);
+  app.use('/api/forum/comment', commentRoutes);
+
+  app.use('*', async (request: RequestWithUser, res, next) => {
     const url = request.originalUrl;
 
     try {
@@ -65,24 +96,27 @@ const startServer = async () => {
         template = fs.readFileSync(path.resolve(distributionPath, 'index.html'), 'utf8');
       }
 
-      let render: (url: string) => Promise<string>;
+      let render: (url: string, preloadedState?: Record<string, any>) => Promise<string>;
+      const preloadedState = await preloadState(request.user || {});
 
       render = isDevelopment()
         ? (await vite!.ssrLoadModule(path.resolve(sourcePath, 'ssr.tsx'))).render
         : (await import(ssrClientPath)).render;
 
-      const appHtml = await render(url);
+      const preloadedStateSerialized = jsesc(preloadedState, {
+        json: true,
+        isScriptContext: true,
+      });
 
-      const preloadedState = await preloadState();
+      const appHtml = await render(url, JSON.parse(preloadedStateSerialized));
 
-      const preloadedStateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
-        preloadedState,
-      )}</script>`;
-
-      const html = template.replace('<!--ssr-outlet-->', preloadedStateHtml + appHtml);
+      const html = template
+        .replace('<!--ssr-outlet-->', appHtml)
+        .replace('<!--store-data-->', preloadedStateSerialized);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (error) {
+      console.log('here');
       if (isDevelopment()) {
         vite!.ssrFixStacktrace(error as Error);
       }
@@ -90,9 +124,12 @@ const startServer = async () => {
     }
   });
 
+  await dbConnect();
+
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
   });
+  app.use(errorHandler);
 };
 
 startServer();

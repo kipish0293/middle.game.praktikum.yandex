@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ErrorBoundary, Layout, ProtectedRoute } from '@app/components';
 import { Routes as RouteNames } from '@app/const';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { useAppSelector } from '@app/hooks';
 import {
   ForumPage,
   GameOverPage,
@@ -23,14 +23,12 @@ import {
   RegisterPage,
   ServiceUnavailable,
 } from '@app/pages';
-import { getUser } from '@app/store';
 
 import { theme } from './chakraTheme';
 import { ForumList } from './pages/forum/components/ForumList';
 import { ForumTopic } from './pages/forum/components/ForumTopic';
 
 export function App() {
-  const dispatch = useAppDispatch();
   const initialDataFetch = useRef(false);
   const { isLoading } = useAppSelector((state) => state.user);
 
@@ -41,8 +39,6 @@ export function App() {
       return;
     }
     initialDataFetch.current = true;
-
-    dispatch(getUser());
 
     // в режиме разработки срабатывает дважды из-за React.StrictMode
     startServiceWorker();

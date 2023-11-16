@@ -5,7 +5,7 @@ import ScoreReducer from './slices/ScoreSlice/ScoreSlice';
 import GameStateReducer from './slices/GameStateSlice/GameStateSlice';
 import LeaderboardReducer from './slices/LeaderboardSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: UserReducer,
   score: ScoreReducer,
   gameState: GameStateReducer,
@@ -25,7 +25,10 @@ if (typeof window !== 'undefined') {
   delete window.__PRELOADED_STATE__;
 }
 
-export function setupStore() {
+export function setupStore(ssrPreloadedState?: State) {
+  if (!preloadedState) {
+    preloadedState = ssrPreloadedState;
+  }
   return configureStore({ reducer: rootReducer, preloadedState: preloadedState || {} });
 }
 

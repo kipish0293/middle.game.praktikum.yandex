@@ -13,14 +13,22 @@ const enum Method {
 
 type Url = URL | string;
 
+interface BaseApiParameters {
+  url: string | URL;
+  apiBaseUrl?: string | URL;
+  withCredentials?: boolean;
+}
+
 type RequestData = AnyObject | FormData;
+
 export class BaseApi {
   private readonly _baseUrl: string | URL;
 
   private readonly _withCredentials: boolean;
 
-  public constructor(url: string | URL, withCredentials = false) {
-    this._baseUrl = `${url ? `${baseUrl}/${url}` : `${baseUrl}`}`;
+  public constructor(properties: BaseApiParameters) {
+    const { url, apiBaseUrl = baseUrl, withCredentials = false } = properties;
+    this._baseUrl = `${url ? `${apiBaseUrl}/${url}` : `${apiBaseUrl}`}`;
     this._withCredentials = withCredentials;
   }
 

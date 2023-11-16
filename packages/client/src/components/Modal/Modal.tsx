@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import { BACKGROUND_COLOR } from '@app/const';
+import { BACKGROUND_COLOR } from '../../const/colors';
 
 type ModalProperties = {
   onClose: () => void;

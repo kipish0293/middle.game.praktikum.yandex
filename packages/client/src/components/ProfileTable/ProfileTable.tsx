@@ -15,7 +15,7 @@ import {
 import { ChangeEvent, useRef } from 'react';
 
 import { ProfileItem, ProfileTableControls } from '@app/components';
-import { FieldName, ProfileFields, staticBaseUrl } from '@app/const';
+import { FieldName, ProfileFields, localServerUrl } from '@app/const';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { logout } from '@app/store';
 import { Field, User } from '@app/types';
@@ -116,7 +116,12 @@ export function ProfileTable({
             type="button"
             onClick={onOpen}
           >
-            <Image w="100%" h="100%" alt="avatar" src={`${staticBaseUrl}/${user?.avatar}`} />
+            <Image
+              w="100%"
+              h="100%"
+              alt="avatar"
+              src={`${localServerUrl}/resources/${user?.avatar}`}
+            />
           </Button>
           <Flex flexDirection="column" pt="1.6rem">
             {fields.map((element) => createItem(element))}
