@@ -5,16 +5,8 @@ import { protectedRoutes, Routes } from '../const/routes';
 
 import { useAppSelector } from './redux';
 
-const enum LoggedInStatus {
-  PENDING = 'pending',
-  TRUE = 'true',
-  FALSE = 'false',
-}
-
 export const useProtectedRoute = () => {
-  const { isLoggedIn } = useAppSelector((state) => state.user);
-  const auth = isLoggedIn === LoggedInStatus.TRUE;
-  const pending = isLoggedIn === LoggedInStatus.PENDING;
+  const isLoggedIn = !!useAppSelector((state) => state?.user?.user?.id);
   const location = useLocation();
   const { pathname } = location as { pathname: Routes };
   const redirect = useMemo(
@@ -27,8 +19,8 @@ export const useProtectedRoute = () => {
   const isLoginPage = pathname === Routes.SIGNIN;
   const isMainPage = pathname === Routes.ROOT;
   const isProtectedRouteLocation = protectedRoutes.includes(pathname);
-  const redirectToLogin = !auth && isProtectedRouteLocation && !isLoginPage && !pending;
-  const redirectToMainPage = auth && !isProtectedRouteLocation && !isMainPage && !pending;
+  const redirectToLogin = !isLoggedIn && isProtectedRouteLocation && !isLoginPage;
+  const redirectToMainPage = isLoggedIn && !isProtectedRouteLocation && !isMainPage;
   if (redirectToMainPage) {
     redirect.to = Routes.ROOT;
     redirect.shouldRedirect = true;
