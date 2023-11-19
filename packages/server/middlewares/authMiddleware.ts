@@ -25,9 +25,10 @@ export const authMiddleware = async (
     return;
   }
   const user = await getUserInfo(cookie);
-  if (!user && protectedRoutes.includes(url)) {
+  if (!user && isProtectedRoute) {
     next(new AuthorizationError('Not authorized'));
+  } else {
+    request.user = user;
+    next();
   }
-  request.user = user;
-  next();
 };

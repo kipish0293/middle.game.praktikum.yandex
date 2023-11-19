@@ -21,12 +21,12 @@ export const deleteThread = async (
   const threadToDelete = await Thread.findOne({ where: { id: threadId } });
   try {
     checkAuthor(threadToDelete?.dataValues.author, userId as string);
+    Thread.destroy({ where: { id: threadId } })
+      .then(() => response.status(200).send({ message: `thread ${threadId} deleted` }))
+      .catch((error) => next(error));
   } catch (error) {
     next(error);
   }
-  Thread.destroy({ where: { id: threadId } })
-    .then(() => response.status(200).send({ message: `thread ${threadId} deleted` }))
-    .catch((error) => next(error));
 };
 
 export const getThreads = (request: RequestWithUser, response: Response, next: NextFunction) => {
@@ -50,10 +50,10 @@ export const editThread = async (
   const threadToEdit = await Thread.findOne({ where: { id: threadId } });
   try {
     checkAuthor(threadToEdit?.dataValues.author, userId as string);
+    Thread.update({ title }, { where: { id: threadId }, returning: true })
+      .then((thread) => response.send({ thread }))
+      .catch((error) => next(error));
   } catch (error) {
     next(error);
   }
-  Thread.update({ title }, { where: { id: threadId }, returning: true })
-    .then((thread) => response.send({ thread }))
-    .catch((error) => next(error));
 };

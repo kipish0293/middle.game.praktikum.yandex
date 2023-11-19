@@ -21,12 +21,12 @@ export const deleteAnswer = async (
   const answerToDelete = await Answer.findOne({ where: { id: answerId } });
   try {
     checkAuthor(answerToDelete?.dataValues.author, userId as string);
+    Answer.destroy({ where: { id: answerId } })
+      .then(() => response.status(200).send({ message: `answer ${answerId} deleted` }))
+      .catch((error) => next(error));
   } catch (error) {
     next(error);
   }
-  Answer.destroy({ where: { id: answerId } })
-    .then(() => response.status(200).send({ message: `answer ${answerId} deleted` }))
-    .catch((error) => next(error));
 };
 
 export const getAnswers = (request: RequestWithUser, response: Response, next: NextFunction) => {
@@ -52,10 +52,10 @@ export const editAnswer = async (
   const answerToEdit = await Answer.findOne({ where: { id: answerId } });
   try {
     checkAuthor(answerToEdit?.dataValues.author, userId as string);
+    Answer.update({ title, text }, { where: { id: answerId } })
+      .then((answer) => response.send({ answer }))
+      .catch((error) => next(error));
   } catch (error) {
     next(error);
   }
-  Answer.update({ title, text }, { where: { id: answerId } })
-    .then((answer) => response.send({ answer }))
-    .catch((error) => next(error));
 };

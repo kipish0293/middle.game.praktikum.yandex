@@ -1,6 +1,6 @@
 export default async function preloadState(user: unknown) {
   return {
-    user: { user, serviceId: undefined, isLoading: false, error: '', isLoggedIn: 'true' },
+    user: { user, serviceId: undefined, isLoading: false, error: '' },
     score: {
       score: 0,
       isLoading: false,
