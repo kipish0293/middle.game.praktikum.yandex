@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { validationResult } from 'express-validator';
-import type { RequestWithUser } from 'RequestWithUser';
 import type { NextFunction, Response } from 'express';
+
+import type { RequestWithUser } from '../types/RequestWithUser';
 
 export const validateRequest = (
   request: RequestWithUser,

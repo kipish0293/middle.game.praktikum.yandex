@@ -16,10 +16,11 @@ import express from 'express';
 import type { ViteDevServer } from 'vite';
 import { createServer as createViteServer } from 'vite';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import type { RequestWithUser } from 'RequestWithUser';
 import bodyParser from 'body-parser';
 import jsesc from 'jsesc';
 
+import type { RequestWithUser } from './types/RequestWithUser';
+import { reactionRoutes } from './routes/reaction';
 import preloadState from './preloadState';
 // import { dbConnect } from './db/connect';
 import { authMiddleware } from './middlewares/authMiddleware';
@@ -81,6 +82,7 @@ const startServer = async () => {
   app.use('/api/forum/thread', threadRoutes);
   app.use('/api/forum/answer', answerRoutes);
   app.use('/api/forum/comment', commentRoutes);
+  app.use('/api/forum/reaction', reactionRoutes);
 
   app.use('*', async (request: RequestWithUser, res, next) => {
     const url = request.originalUrl;

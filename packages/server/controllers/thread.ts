@@ -1,6 +1,6 @@
-import type { RequestWithUser } from 'RequestWithUser';
 import type { NextFunction, Response } from 'express';
 
+import type { RequestWithUser } from '../types/RequestWithUser';
 import { Thread } from '../models/Thread';
 import { checkAuthor } from '../utils/checkAuthor';
 

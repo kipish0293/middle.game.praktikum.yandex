@@ -1,3 +1,5 @@
+import { Reaction } from 'models/Reaction';
+
 import { Answer } from '../models/Answer';
 import { Thread } from '../models/Thread';
 import { Comment } from '../models/Comment';
@@ -10,6 +12,7 @@ export async function dbConnect() {
     await Thread.sync();
     await Answer.sync();
     await Comment.sync();
+    await Reaction.sync();
     await sequelize.sync(); // Синхронизация базы данных
     console.log('Database connected!');
   } catch (error) {

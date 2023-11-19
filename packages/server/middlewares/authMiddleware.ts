@@ -1,6 +1,6 @@
 import type { Response, NextFunction } from 'express';
-import type { RequestWithUser } from 'RequestWithUser';
 
+import type { RequestWithUser } from '../types/RequestWithUser';
 import { getUserInfo } from '../utils/getUserInfo';
 import { protectedRoutes } from '../const/protectedRoutes';
 import { AuthorizationError } from '../errors/AuthorizationError';
