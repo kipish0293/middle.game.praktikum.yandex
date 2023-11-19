@@ -3,4 +3,4 @@ export const staticBaseUrl = 'https://ya-praktikum.tech/api/v2/resources';
 
 export const localServerUrl = `http://localhost:${__SERVER_PORT__}/api/v2`;
 
-export const localServer = 'http://localhost:3006';
+export const localServer = 'http://localhost:3000';
