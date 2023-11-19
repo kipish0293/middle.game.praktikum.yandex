@@ -4,12 +4,14 @@ import UserReducer from './slices/UserSlice';
 import ScoreReducer from './slices/ScoreSlice/ScoreSlice';
 import GameStateReducer from './slices/GameStateSlice/GameStateSlice';
 import LeaderboardReducer from './slices/LeaderboardSlice';
+import ForumReducer from './slices/ForumSlice';
 
 export const rootReducer = combineReducers({
   user: UserReducer,
   score: ScoreReducer,
   gameState: GameStateReducer,
   leaderboard: LeaderboardReducer,
+  forum: ForumReducer,
 });
 
 type State = ReturnType<typeof rootReducer>;

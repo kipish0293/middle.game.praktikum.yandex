@@ -5,3 +5,4 @@ export * from './slices/UserActionCreators';
 export { userSliceActions } from './slices/UserSlice';
 export * from './store';
 export { sendScore, getLeaderboard } from './slices/GameActionCreators';
+export { forumActions } from './slices/ForumSlice';

@@ -23,7 +23,6 @@ export class AuthApi {
   }
 
   public async getUser() {
-    console.log(baseUserApi);
     return baseUserApi.get({ route: AuthApiRoutes.USER });
   }
 

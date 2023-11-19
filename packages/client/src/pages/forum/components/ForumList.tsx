@@ -3,52 +3,49 @@ import { useEffect, useState } from 'react';
 import { dateFormat } from '@app/utils/dateFormatter';
 
 import { Icons, Link, Modal, Pagination } from '@app/components';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
 
 import styles from '../Forum.module.css';
-import mock from '../mock.json';
+import {
+  createNewThread,
+  deleteTread,
+  getAllThread,
+} from '../../../store/slices/ForumActionCreators';
+import { TTread } from '../../../store/slices/ForumSlice';
 
 import { CreateTopic } from './CreateTopic';
 import { GridColumnTemplate } from './GridColumnTemplate';
 
-type GridItemType = {
-  id: number | string /* пока что добавляю string для создания топика */;
-  name: string;
-  creationDate: Date | string;
-  commentsCount: number;
-};
-
-const titleItemList = ['Themes', 'Date', 'Comments', ''];
+const titleItemList = ['Themes', 'Date', ''];
 const itemsPerPage = 10;
 
 export function ForumList() {
-  const [data, setData] = useState(mock.data.allTheme);
-  const [rowItemList, setRowItemList] = useState<GridItemType[]>([]);
-  const [paginatedItems, setPaginatedItems] = useState<GridItemType[]>([]);
+  const { tread } = useAppSelector((state) => state.forum);
+  const [rowItemList, setRowItemList] = useState<TTread[]>([]);
+  const [paginatedItems, setPaginatedItems] = useState<TTread[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
-
+  const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    const sortedList = [...data].sort((a, b) => b.creationDate.localeCompare(a.creationDate));
+    dispatch(getAllThread());
+  }, []);
+
+  useEffect(() => {
+    const sortedList = [...tread].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
     const endOffset = itemOffset + itemsPerPage;
     const sortedPaginatedItems = sortedList.slice(itemOffset, endOffset);
 
     setRowItemList(sortedList);
     setPaginatedItems(sortedPaginatedItems);
-  }, [data, itemOffset]);
+  }, [tread, itemOffset]);
 
   const deleteRowItem = (id: number | string) => {
-    const itemIndex = data.findIndex((it) => it.id === id);
-    const newData = [...data];
-    newData.splice(itemIndex, 1);
-    setData(newData);
+    dispatch(deleteTread(`${id}`));
   };
 
   const onConfirm = (newItem: any) => {
-    const newData = [...data];
-    newData.push(newItem);
-    setItemOffset(0);
-    setData(newData);
+    dispatch(createNewThread(newItem));
     onClose();
   };
 
@@ -82,9 +79,9 @@ export function ForumList() {
             /* eslint-disable-next-line react/no-array-index-key */
             key={index}
             itemList={[
-              <Link to={`/forum/${item.id}`}>{item.name}</Link>,
-              dateFormat(item.creationDate),
-              item.commentsCount,
+              <Link to={`/forum/${item.id}`}>{item.title}</Link>,
+              dateFormat(item.updatedAt),
+              // item.commentsCount,
               <IconButton
                 aria-label="delete thread"
                 icon={<Icons.TrashItemIcon />}

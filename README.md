@@ -129,10 +129,10 @@
   ### Thread
 1. post /api/forum/thread  body: {title} - создаёт тему форума за авторством автора, возвращает созданнуют тему
 2. get /api/forum/thread/ - возвращает все темы
-3. delete /api/forum/:threadId - удаляет тему из БД
+3. delete /api/forum/thread/:threadId - удаляет тему из БД
 4. put /:threadId/edit - body: {title} изменяет заголовок темы
   ### Answer
-1. get /api/forum/:threadId - возвращает все ответы в теме
+1. get /api/forum/answer/:threadId - возвращает все ответы в теме
 2. post /api/forum/answer body: {'title', 'text', 'thread'} - создаёт ответ и возвращает созданный ответ
 3. delete /api/forum/:answerId - удаляет ответ из БД
 4. put /api/forum/:threadId/edit body: {text} изменяет текст ответа

@@ -6,7 +6,7 @@ import styles from './Pagination.module.css';
 
 type PaginationProperties = {
   handlePageClick: (e: { selected: number }) => void;
-  dataLength: number;
+  dataLength?: number;
   itemsPerPage: number;
 };
 
@@ -37,7 +37,7 @@ export function Pagination({ handlePageClick, dataLength, itemsPerPage }: Pagina
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         marginPagesDisplayed={1}
-        pageCount={Math.ceil(dataLength / itemsPerPage)}
+        pageCount={dataLength ? Math.ceil(dataLength / itemsPerPage) : 1}
       />
     </Box>
   );

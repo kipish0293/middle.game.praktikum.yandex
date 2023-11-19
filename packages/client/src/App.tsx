@@ -63,13 +63,13 @@ export function App() {
                 <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
                 <Route path={RouteNames.FORUM} element={<ForumPage />}>
                   <Route index element={<ForumList />} />
-                  <Route path=":id" element={<ForumTopic />} />
                 </Route>
                 <Route path={RouteNames.LEADER_BOARD} element={<LeaderboardPage />} />
                 <Route path={RouteNames.GAME_OVER} element={<GameOverPage />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/forum/:id" element={<ForumTopic />} />
           </Routes>
         )}
       </ErrorBoundary>

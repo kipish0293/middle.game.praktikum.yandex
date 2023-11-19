@@ -1,50 +1,53 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
-import { ChangeEvent, useCallback, useEffect, useState, useId } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { FormTextArea, Icons, Link, Pagination } from '@app/components';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
 
 import styles from '../Forum.module.css';
-import mock from '../mock.json';
+import { createNewAnswer, getAllAnswer } from '../../../store/slices/ForumActionCreators';
 
 import { ForumTopicComment } from './ForumTopicComment';
 
 type GridItemType = {
-  id?: number | string /* пока что добавляю string для создания топика */;
-  name?: string;
-  creationDate?: Date | string;
-  commentsCount?: number;
-  comments?: any;
+  id?: number;
+  author?: number;
+  createdAt?: string;
+  updatedAt: string;
+  text?: string;
+  thread?: number;
 };
 
 const itemsPerPage = 5;
 
 export function ForumTopic() {
-  const [data, setData] = useState<GridItemType>();
-  const [paginatedItems, setPaginatedItems] = useState([]);
+  const { answer } = useAppSelector((state) => state.forum);
+  const [data, setData] = useState<GridItemType[]>();
+  const [paginatedItems, setPaginatedItems] = useState<GridItemType[]>([]);
   const [inputText, setInputText] = useState('');
   const [itemOffset, setItemOffset] = useState(0);
-
+  const dispatch = useAppDispatch();
   const parameters = useParams();
 
   useEffect(() => {
-    const item = mock.data.allTheme.find((index) => String(index.id) === parameters.id);
-    const newItem = {
-      ...item,
-      comments: mock.data.comments,
-    };
-
-    setData(newItem);
+    if (parameters.id) {
+      dispatch(getAllAnswer(`${parameters.id}`));
+    }
   }, []);
 
   useEffect(() => {
+    setData(answer);
+  }, [answer]);
+
+  useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setPaginatedItems(data?.comments ? data.comments.slice(itemOffset, endOffset) : []);
+    setPaginatedItems(data ? data.slice(itemOffset, endOffset) : []);
   }, [data, itemOffset]);
 
   const handlePageClick = useCallback(
     (event: { selected: number }) => {
-      const newOffset = (event.selected * itemsPerPage) % (data?.comments?.length || 1);
+      const newOffset = (event.selected * itemsPerPage) % (data?.length || 1);
       setItemOffset(newOffset);
     },
     [data],
@@ -56,18 +59,14 @@ export function ForumTopic() {
   }, []);
 
   const sendData = useCallback(() => {
-    const dataCopy = { ...data };
-
-    dataCopy.comments.push({
-      id: useId(),
-      name: 'Ivanessson',
-      creationDate: new Date().toISOString(),
-      comment: inputText,
-      commentsCount: dataCopy.commentsCount,
-    });
-    setData(dataCopy);
+    const body = {
+      title: inputText,
+      text: inputText,
+      thread: parameters.id,
+    };
+    dispatch(createNewAnswer(body));
     setInputText('');
-  }, [data, inputText]);
+  }, [data, inputText, parameters.id, dispatch, createNewAnswer]);
 
   return (
     <Flex direction="column" justifyContent="space-between" h="100%">
@@ -98,7 +97,7 @@ export function ForumTopic() {
         </Flex>
         <Flex w="100%">
           <Pagination
-            dataLength={data?.comments?.length}
+            dataLength={data ? data.length : undefined}
             handlePageClick={handlePageClick}
             itemsPerPage={itemsPerPage}
           />

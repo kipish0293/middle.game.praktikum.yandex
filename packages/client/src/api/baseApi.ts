@@ -11,7 +11,7 @@ const enum Method {
   DELETE = 'DELETE',
 }
 
-type Url = URL | string;
+export type Url = URL | string;
 
 interface BaseApiParameters {
   url: string | URL;
@@ -101,7 +101,7 @@ export class BaseApi {
     }
   }
 
-  public async delete({ route, data }: { route: Url; data: RequestData }) {
+  public async delete({ route, data }: { route: Url; data?: RequestData }) {
     try {
       const response = await fetch(
         `${this._baseUrl}/${route}`,
