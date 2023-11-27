@@ -20,7 +20,7 @@ services:
 
   server:
     container_name: prackicum-server-code-alchemists
-    image: prackicum-server-code-alchemists:latest
+    image: osoko007/prackicum-server-code-alchemists:latest
     build:
       context: .
       dockerfile: Dockerfile.server
