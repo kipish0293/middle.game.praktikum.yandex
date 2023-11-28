@@ -31,4 +31,4 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_KEY }}
-          script: cd ~/docker && docker-compose stop && docker-compose down && sudo docker-compose -f docker-compose.prod.yml up -d --no-deps
+          script: cd ~/docker && docker-compose stop && docker rm -f prackicum-server-code-alchemists || true && docker-compose down && sudo docker pull ${{ secrets.DOCKER_USERNAME }}/prackicum-server-code-alchemists:latest && sudo docker-compose -f docker-compose.prod.yml up -d --no-deps
