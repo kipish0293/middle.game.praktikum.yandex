@@ -1,4 +1,4 @@
-import { localServerUrl } from '@app/const';
+import { localServerYandexApi } from '@app/const';
 
 import { AnyObject } from '../types/AnyObject';
 
@@ -14,7 +14,7 @@ const enum UserApiRoutes {
 
 const baseUserApi = new BaseApi({
   url: UserApiRoutes.BASE,
-  apiBaseUrl: localServerUrl,
+  apiBaseUrl: localServerYandexApi,
   withCredentials: true,
 });
 

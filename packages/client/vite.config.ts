@@ -17,7 +17,8 @@ const developmentMode = process.env.NODE_ENV === 'development';
 export default defineConfig(() => {
   return {
     define: {
-      __SERVER_PORT__: process.env.SERVER_PORT,
+      __SERVER_PORT__: JSON.stringify(process.env.SERVER_PORT),
+      __NODE_ENV__: process.env.NODE_ENV,
       self: this,
     },
     plugins: [

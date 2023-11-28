@@ -1,5 +1,4 @@
-import { Reaction } from 'models/Reaction';
-
+import { Reaction } from '../models/Reaction';
 import { Answer } from '../models/Answer';
 import { Thread } from '../models/Thread';
 import { Comment } from '../models/Comment';

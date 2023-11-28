@@ -22,7 +22,7 @@ import jsesc from 'jsesc';
 import type { RequestWithUser } from './types/RequestWithUser';
 import { reactionRoutes } from './routes/reaction';
 import preloadState from './preloadState';
-// import { dbConnect } from './db/connect';
+import { dbConnect } from './db/connect';
 import { authMiddleware } from './middlewares/authMiddleware';
 import { errorHandler } from './middlewares/errorHandler';
 import { threadRoutes } from './routes/thread';
@@ -79,6 +79,8 @@ const startServer = async () => {
     app.use('/src', express.static(path.resolve(distributionPath, 'src'), { index: false }));
   }
 
+  app.use('/', express.static(path.resolve(distributionPath), { index: false }));
+
   app.use('/api/forum/thread', threadRoutes);
   app.use('/api/forum/answer', answerRoutes);
   app.use('/api/forum/comment', commentRoutes);
@@ -124,6 +126,8 @@ const startServer = async () => {
       next(error);
     }
   });
+
+  dbConnect();
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);

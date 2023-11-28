@@ -1,10 +1,11 @@
-import { localServer } from '../const/api';
+import { localServerApi } from '@app/const';
+
 import { AnyObject } from '../types/AnyObject';
 
 import { BaseApi, Url } from './baseApi';
 
 const enum ForumApiRoutes {
-  BASE = 'api/forum',
+  BASE = 'forum',
   NEWTREAD = 'thread',
   ALLTREAD = 'thread/',
   NEWANSWER = 'answer',
@@ -12,7 +13,7 @@ const enum ForumApiRoutes {
 
 const baseForumApi = new BaseApi({
   url: ForumApiRoutes.BASE,
-  apiBaseUrl: localServer,
+  apiBaseUrl: localServerApi,
   withCredentials: true,
 });
 
