@@ -1,5 +1,5 @@
 import { LoginData, SignUpData } from '@app/types';
-import { localServerUrl } from '@app/const';
+import { localServerYandexApi } from '@app/const';
 
 import { BaseApi } from './baseApi';
 
@@ -13,7 +13,7 @@ const enum AuthApiRoutes {
 
 const baseUserApi = new BaseApi({
   url: AuthApiRoutes.BASE,
-  apiBaseUrl: localServerUrl,
+  apiBaseUrl: localServerYandexApi,
   withCredentials: true,
 });
 

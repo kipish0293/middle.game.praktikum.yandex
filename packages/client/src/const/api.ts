@@ -1,6 +1,7 @@
 export const baseUrl = 'https://ya-praktikum.tech/api/v2';
 export const staticBaseUrl = 'https://ya-praktikum.tech/api/v2/resources';
 
-export const localServerUrl = `http://localhost:${__SERVER_PORT__}/api/v2`;
-
-export const localServer = 'http://localhost:3000';
+const localServerBaseUrl = __NODE_ENV__ === 'development' ? 'localhost' : '51.250.103.103';
+const serverPort = __NODE_ENV__ === 'development' ? __SERVER_PORT__ : 80;
+export const localServerApi = `http://${localServerBaseUrl}:${serverPort}/api`;
+export const localServerYandexApi = `http://${localServerBaseUrl}:${serverPort}/api/v2`;
