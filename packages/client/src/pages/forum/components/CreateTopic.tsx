@@ -1,7 +1,7 @@
 import { Button, Flex } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
 
-import { FormInput, FormTextArea } from '@app/components';
+import { FormInput } from '@app/components';
 
 import styles from '../Forum.module.css';
 
@@ -26,17 +26,10 @@ export function CreateTopic({ onConfirm, onClose }: CreateTopicProperties) {
 
   const onChange = (e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
-    if (element.name === 'topic-name') {
-      setFormState((previousState) => ({
-        ...previousState,
-        topicName: element.value,
-      }));
-    } else if (element.name === 'topic-description') {
-      setFormState((previousState) => ({
-        ...previousState,
-        topicDescription: element.value,
-      }));
-    }
+    setFormState((previousState) => ({
+      ...previousState,
+      topicName: element.value,
+    }));
   };
 
   return (
@@ -47,14 +40,6 @@ export function CreateTopic({ onConfirm, onClose }: CreateTopicProperties) {
         isInvalid={false}
         onChange={onChange}
         mb={5}
-      />
-      <FormTextArea
-        name="topic-description"
-        placeholder="Enter topic description"
-        isInvalid={false}
-        height="150px"
-        value={formState.topicDescription}
-        onChange={onChange}
       />
       <Flex mt={20} mb={10} className={styles.modal_footer}>
         <Button onClick={onConfirmWithData} colorScheme="whatsapp">

@@ -32,7 +32,7 @@ export function ForumTopic() {
 
   useEffect(() => {
     if (parameters.id) {
-      dispatch(getAllAnswer(`${parameters.id}`));
+      dispatch(getAllAnswer(String(parameters.id)));
     }
   }, []);
 

@@ -18,6 +18,7 @@ import { createServer as createViteServer } from 'vite';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import bodyParser from 'body-parser';
 import jsesc from 'jsesc';
+import helmet from 'helmet';
 
 import type { RequestWithUser } from './types/RequestWithUser';
 import { reactionRoutes } from './routes/reaction';
@@ -45,6 +46,15 @@ const startServer = async () => {
     }),
   );
   app.use(cors());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          'script-src': "'unsafe-eval' 'unsafe-inline' 'self'",
+        },
+      },
+    }),
+  );
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));

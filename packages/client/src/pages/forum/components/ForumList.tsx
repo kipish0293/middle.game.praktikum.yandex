@@ -6,15 +6,12 @@ import { Icons, Link, Modal, Pagination } from '@app/components';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 
 import styles from '../Forum.module.css';
-import {
-  createNewThread,
-  deleteTread,
-  getAllThread,
-} from '../../../store/slices/ForumActionCreators';
+import { createNewThread, getAllThread } from '../../../store/slices/ForumActionCreators';
 import { TTread } from '../../../store/slices/ForumSlice';
 
 import { CreateTopic } from './CreateTopic';
 import { GridColumnTemplate } from './GridColumnTemplate';
+import { DeleteTopic } from './DeleteTopic';
 
 const titleItemList = ['Themes', 'Date', ''];
 const itemsPerPage = 10;
@@ -26,6 +23,7 @@ export function ForumList() {
   const [itemOffset, setItemOffset] = useState(0);
   const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [deleteItem, setDeleteItem] = useState<number | null>();
 
   useEffect(() => {
     dispatch(getAllThread());
@@ -40,8 +38,9 @@ export function ForumList() {
     setPaginatedItems(sortedPaginatedItems);
   }, [tread, itemOffset]);
 
-  const deleteRowItem = (id: number | string) => {
-    dispatch(deleteTread(`${id}`));
+  const deleteRowItem = (id: number) => {
+    setDeleteItem(id);
+    onOpen();
   };
 
   const onConfirm = (newItem: any) => {
@@ -81,7 +80,6 @@ export function ForumList() {
             itemList={[
               <Link to={`/forum/${item.id}`}>{item.title}</Link>,
               dateFormat(item.updatedAt),
-              // item.commentsCount,
               <IconButton
                 aria-label="delete thread"
                 icon={<Icons.TrashItemIcon />}
@@ -100,7 +98,13 @@ export function ForumList() {
         isOpen={isOpen}
         onClose={onClose}
         size="xl"
-        body={<CreateTopic onClose={onClose} onConfirm={onConfirm} />}
+        body={
+          deleteItem ? (
+            <DeleteTopic onClose={onClose} id={deleteItem} setDeleteItem={setDeleteItem} />
+          ) : (
+            <CreateTopic onClose={onClose} onConfirm={onConfirm} />
+          )
+        }
         title="New topic"
       />
     </>
