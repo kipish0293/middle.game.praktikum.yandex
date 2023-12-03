@@ -37,4 +37,8 @@ export class ForumApi {
   public async createNewAnswer(body: AnyObject) {
     return baseForumApi.post({ route: ForumApiRoutes.NEWANSWER, data: body });
   }
+
+  public async deleteComment(commentId: Url) {
+    return baseForumApi.delete({ route: `answer/${commentId}` });
+  }
 }

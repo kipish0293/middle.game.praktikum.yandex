@@ -10,7 +10,6 @@ export const validateRequest = (
   next: NextFunction,
 ) => {
   const result = validationResult(request);
-  console.log('result');
   if (!result.isEmpty()) {
     response.send({ errors: result.array() });
   }

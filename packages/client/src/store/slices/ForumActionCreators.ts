@@ -19,3 +19,7 @@ export const getAllAnswer = createAsyncThunk('getAllAnswer', async (threadId: Ur
 export const createNewAnswer = createAsyncThunk('createNewAnswer', async (body: AnyObject) =>
   forumApi.createNewAnswer(body),
 );
+
+export const deleteComment = createAsyncThunk('deleteComment', async (commentId: Url) =>
+  forumApi.deleteComment(commentId),
+);

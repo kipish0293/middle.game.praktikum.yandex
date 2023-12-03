@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   createNewAnswer,
   createNewThread,
+  deleteComment,
   deleteTread,
   getAllAnswer,
   getAllThread,
@@ -94,6 +95,17 @@ export const forumSlice = createSlice({
         state.answer = [...state.answer, JSON.parse(action.payload)];
       })
       .addCase(createNewAnswer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.answer = state.answer.filter((item) => item.id !== Number(action.meta.arg));
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });
