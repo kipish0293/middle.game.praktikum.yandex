@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
     "preview": "cross-env YANDEX_API_URL=https://ya-praktikum.tech POSTGRES_URL=localhost node ./dist/index.js",
-    "dev": "cross-env NODE_ENV=development YANDEX_API_URL=https://ya-praktikum.tech SERVER_PORT=3000 POSTGRES_URL=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres POSTGRES_DB=postgres POSTGRES_PORT=5432 nodemon index.ts",
+    "dev": "cross-env NODE_ENV=development YANDEX_API_URL=https://ya-praktikum.tech SERVER_PORT=3000 POSTGRES_URL=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=10398kkopl POSTGRES_DB=postgres POSTGRES_PORT=5432 nodemon index.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest ."
@@ -19,6 +19,7 @@
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
     "http-proxy-middleware": "^2.0.6",
     "jsesc": "^3.0.2",
     "pg": "^8.8.0",
