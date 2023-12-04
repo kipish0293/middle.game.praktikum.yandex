@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Game, IntroScene } from '@app/engine';
 import { Routes } from '@app/const';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { Game, IntroScene } from '@app/engine';
+import { useAppDispatch } from '@app/hooks';
 import { gameStateActions, scoreActions } from '@app/store';
 import { GameState } from '@app/types';
 

@@ -34,7 +34,7 @@ export function LoginPage() {
 
       if (typeof window !== 'undefined') {
         // eslint-disable-next-line max-len
-        window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${origin}/signin`;
+        window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${origin}`;
       }
     } catch (error_) {
       console.error(error_);

@@ -27,7 +27,7 @@ const baseUserApi = new BaseApi({
 export class OauthApi {
   public async getOauthServiceId() {
     // eslint-disable-next-line max-len
-    const withQueryParameters = `${OauthApiRoutes.GET_OAUTH_SERVICE_ID}/?redirect_uri=${origin}/signin`;
+    const withQueryParameters = `${OauthApiRoutes.GET_OAUTH_SERVICE_ID}/?redirect_uri=${origin}`;
     return baseUserApi.get({ route: withQueryParameters });
   }
 

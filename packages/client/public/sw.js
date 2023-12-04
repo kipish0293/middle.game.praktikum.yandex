@@ -21,7 +21,7 @@ const urlsForProd = [
 
 let URLS;
 
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.DEV) {
   URLS = urlsForDev;
 } else {
   URLS = urlsForProd;
@@ -55,7 +55,7 @@ this.addEventListener('install', (event) => {
 this.addEventListener('fetch', function (event) {
   const request = event.request;
 
-  if (request.method === 'GET' && process.env.NODE_ENV !== 'development') {
+  if (request.method === 'GET' && import.meta.env.PROD) {
     event.respondWith(
       caches.open(CACHE_NAME).then(function (cache) {
         return Promise.race([timeout(300), fetch(event.request)])
