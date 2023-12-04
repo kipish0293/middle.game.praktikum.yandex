@@ -41,7 +41,7 @@ export class Enemy extends AbstractEntity {
   private readonly fireInterval: NodeJS.Timer;
 
   private get wallCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.WALL).collision;
+    return CheckCollision.checkCollisionWithType(this, Entities.WALL);
   }
 
   private get bulletCollision() {
@@ -156,7 +156,7 @@ export class Enemy extends AbstractEntity {
   }
 
   private handleWallCollision() {
-    if (this.wallCollision) {
+    if (this.wallCollision.collision) {
       this.moveBack();
     }
   }
@@ -165,10 +165,11 @@ export class Enemy extends AbstractEntity {
     const { collision, entity } = this.bulletCollision;
 
     if (collision) {
-      const { type } = entity.entity as Bullet;
+      const bullet = entity.entity as Bullet;
 
-      if (type === BulletType.PLAYER) {
+      if (bullet.type === BulletType.PLAYER) {
         this.destroy();
+        bullet.destroy();
         this.destroySound.play();
       }
     }

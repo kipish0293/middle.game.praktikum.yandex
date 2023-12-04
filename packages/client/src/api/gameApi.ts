@@ -1,4 +1,4 @@
-import { localServerYandexApi } from '@app/const';
+import { localServerYandexApi, teamName } from '@app/const';
 
 import { AnyObject } from '../types/AnyObject';
 
@@ -18,6 +18,10 @@ const baseGameApi = new BaseApi({
 export class GameApi {
   public async sendScore(score: AnyObject) {
     return baseGameApi.post({ data: score });
+  }
+
+  public async getTeamLeaderboard(leaderboardData: AnyObject) {
+    return baseGameApi.post({ route: teamName, data: leaderboardData });
   }
 
   public async getLeaderboard(leaderboardData: AnyObject) {

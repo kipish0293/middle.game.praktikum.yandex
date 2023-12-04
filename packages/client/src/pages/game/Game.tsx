@@ -1,18 +1,39 @@
-import { Box, Button, Heading, IconButton, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, IconButton, Spinner, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { toggleFullScreen } from '@app/utils/fullScreenApi';
+import { registerFullScreenEvents, toggleFullScreen } from '@app/utils/fullScreenApi';
 
 import { EngineCanvas, Icons } from '@app/components';
 import { GameState } from '@app/types';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { gameStateActions, sendScore } from '@app/store';
+import { gameStateActions, scoreActions, sendScore } from '@app/store';
 import { teamName } from '@app/const';
 
 import { useDocument } from '../../hooks/useDocument';
+import { getTeamLeaderboard } from '../../store/slices/GameActionCreators';
 
 function GameNotStartedPageView() {
   const dispatch = useAppDispatch();
-  const score = useAppSelector((state) => state.score);
+
+  const { score, highestScore, isLoading } = useAppSelector((state) => state.score);
+
+  useEffect(() => {
+    const leaderboardData = {
+      ratingFieldName: 'score',
+      cursor: 0,
+      limit: 10,
+    };
+
+    const sendScoreData = {
+      data: {
+        score,
+      },
+      ratingFieldName: 'score',
+      teamName,
+    };
+
+    dispatch(sendScore(sendScoreData));
+    dispatch(getTeamLeaderboard(leaderboardData));
+  }, []);
 
   const onPlayClick = () => {
     dispatch(gameStateActions.setGameState(GameState.Started));
@@ -20,36 +41,43 @@ function GameNotStartedPageView() {
 
   return (
     <Box display="flex" alignItems="center" flexDirection="column" gap="40">
-      <Heading>Ready?</Heading>
-      <Text fontSize="2xl">Your highest score: {score.score}</Text>
-      <Button onClick={onPlayClick} size="lg" colorScheme="red">
-        Play
-      </Button>
+      {isLoading ? (
+        <Spinner size="xl" />
+      ) : (
+        <>
+          <Heading>Ready?</Heading>
+          <Text fontSize="2xl">Your highest score: {highestScore}</Text>
+          <Button onClick={onPlayClick} size="lg" colorScheme="red">
+            Play
+          </Button>
+        </>
+      )}
     </Box>
   );
 }
 
 function GameStaredPageView() {
   const dispatch = useAppDispatch();
-  // const { user } = useAppSelector((state) => state.user);
-  const score = useAppSelector((state) => state.score);
-  const onStopClick = () => {
-    const sendScoreData = {
-      data: {
-        score: score.score,
-      },
-      ratingFieldName: 'score',
-      teamName,
-    };
 
+  const score = useAppSelector((state) => state.score.score);
+  const level = useAppSelector((state) => state.gameState.level);
+
+  useEffect(() => {
+    dispatch(gameStateActions.resetGameLevel());
+    dispatch(scoreActions.resetScore());
+  }, []);
+
+  const onStopClick = () => {
     dispatch(gameStateActions.setGameState(GameState.Stopped));
-    dispatch(sendScore(sendScoreData));
   };
 
   return (
     <>
+      <Text fontSize="xl" letterSpacing="widest">
+        Level: {level} Score: {score}
+      </Text>
       <EngineCanvas />
-      <Button onClick={onStopClick} size="lg" colorScheme="red">
+      <Button size="lg" colorScheme="red" onClick={onStopClick}>
         Stop
       </Button>
     </>
@@ -58,7 +86,18 @@ function GameStaredPageView() {
 
 function GameStoppedPageView() {
   const dispatch = useAppDispatch();
-  const score = useAppSelector((state) => state.score);
+
+  const { score, highestScore } = useAppSelector((state) => state.score);
+
+  useEffect(() => {
+    const leaderboardData = {
+      ratingFieldName: 'score',
+      cursor: 0,
+      limit: 10,
+    };
+
+    dispatch(getTeamLeaderboard(leaderboardData));
+  }, []);
 
   const onPlayAgainClick = () => {
     dispatch(gameStateActions.setGameState(GameState.Started));
@@ -67,8 +106,8 @@ function GameStoppedPageView() {
   return (
     <>
       <Box textAlign="center">
-        <Heading>Your current score: {score.score}</Heading>
-        <Text>Your highest score: {score.score}</Text>
+        <Heading>Your current score: {score}</Heading>
+        <Text>Your highest score: {highestScore}</Text>
       </Box>
       <Button onClick={onPlayAgainClick} size="lg" colorScheme="red">
         Play Again
@@ -91,6 +130,8 @@ export function GamePage() {
   const [fullScreen, setFullScreen] = useState<boolean>(!!document?.fullscreenElement);
 
   useEffect(() => {
+    registerFullScreenEvents();
+
     const eventHandler = () => setFullScreen(!!document?.fullscreenElement);
 
     document?.addEventListener('fullscreenchange', eventHandler);

@@ -1,6 +1,5 @@
 import './App.css';
 
-import { registerFullScreenEvents } from '@app/utils/fullScreenApi';
 import { startServiceWorker } from '@app/utils/startServiceWorker';
 import { Center, ChakraProvider, Spinner } from '@chakra-ui/react';
 import '@fontsource/ubuntu-mono/cyrillic.css';
@@ -33,8 +32,6 @@ export function App() {
   const { isLoading } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    registerFullScreenEvents();
-
     if (initialDataFetch.current) {
       return;
     }
@@ -56,10 +53,10 @@ export function App() {
             <Route path={RouteNames.ROOT} element={<ProtectedRoute />}>
               <Route path={RouteNames.SIGNIN} element={<LoginPage />} />
               <Route path={RouteNames.REGISTER} element={<RegisterPage />} />
-              <Route path={RouteNames.GAME} element={<GamePage />} />
               <Route index element={<MainPage />} />
               <Route path={RouteNames.SERVICE_UNAVAILABLE} element={<ServiceUnavailable />} />
               <Route path={RouteNames.ROOT} element={<Layout />}>
+                <Route path={RouteNames.GAME} element={<GamePage />} />
                 <Route path={RouteNames.PROFILE} element={<ProfilePage />} />
                 <Route path={RouteNames.FORUM} element={<ForumPage />}>
                   <Route index element={<ForumList />} />

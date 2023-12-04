@@ -61,7 +61,7 @@ export class EntityService {
     }
 
     setTimeout(() => {
-      this.entitiesMap = {};
+      this.entitiesMap = { ...this.entitiesMap };
     }, 0);
   }
 }

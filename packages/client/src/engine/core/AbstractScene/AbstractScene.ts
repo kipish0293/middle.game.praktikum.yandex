@@ -10,6 +10,7 @@ export abstract class AbstractScene {
     deltaTime: number,
     context: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
+    level?: number,
   ): void;
 
   public registerEntities(...items: EntitiesMapItem[]) {
@@ -18,10 +19,18 @@ export abstract class AbstractScene {
     }
   }
 
+  public abstract onInit?(): void;
+
   public abstract onDestroy?(): void;
 
   public destroyEntity(item: EntitiesMapItem) {
     this.entityService.destroyEntity(item);
+  }
+
+  public init() {
+    if (this.onInit) {
+      this.onInit();
+    }
   }
 
   public destroy() {

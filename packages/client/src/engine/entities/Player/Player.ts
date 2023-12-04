@@ -1,6 +1,6 @@
 import { debounce } from 'lodash';
 
-import { AbstractEntity, InputService, Vector } from '@app/engine';
+import { AbstractEntity, EntityService, InputService, Vector } from '@app/engine';
 import { BulletType } from '@app/types';
 
 import { Directions } from '../../../types/Directions';
@@ -14,6 +14,7 @@ import { Entities } from '../types/Entities';
 import { makeBullet } from '../Bullet/makeBullet';
 import CheckCollision from '../../Actions/CheckCollision';
 import Destroy from '../../Actions/Destroy';
+import { Bullet } from '../Bullet/Bullet';
 
 const image = {
   down: tankDown,
@@ -36,15 +37,15 @@ export class Player extends AbstractEntity {
   private readonly fire: () => void;
 
   private get wallCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.WALL).collision;
+    return CheckCollision.checkCollisionWithType(this, Entities.WALL);
   }
 
   private get bulletCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.BULLET).collision;
+    return CheckCollision.checkCollisionWithType(this, Entities.BULLET);
   }
 
   private get enemyCollision() {
-    return CheckCollision.checkCollisionWithType(this, Entities.ENEMY).collision;
+    return CheckCollision.checkCollisionWithType(this, Entities.ENEMY);
   }
 
   public constructor() {
@@ -154,19 +155,22 @@ export class Player extends AbstractEntity {
   }
 
   private handleWallCollision() {
-    if (this.wallCollision) {
+    if (this.wallCollision.collision) {
       this.moveBack();
     }
   }
 
   private handleBulletCollision() {
-    if (this.bulletCollision) {
+    const entitiesMap = EntityService.getInstance().getEntitiesMap();
+
+    if (this.bulletCollision.collision && entitiesMap[Entities.ENEMY]) {
       this.destroy();
+      (this.bulletCollision.entity.entity as Bullet).destroy();
     }
   }
 
   private handleEnemyCollision() {
-    if (this.enemyCollision) {
+    if (this.enemyCollision.collision) {
       this.moveBack();
     }
   }

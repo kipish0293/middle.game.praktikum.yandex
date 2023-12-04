@@ -8,6 +8,12 @@ export class Game {
 
   private readonly _context: CanvasRenderingContext2D;
 
+  private _level = 1;
+
+  private _maxLevelCount = 3;
+
+  private _enemyKillScore = 50_000;
+
   private _activeScene: AbstractScene;
 
   private bgSound = new Audio('sounds/game.mp3');
@@ -18,7 +24,13 @@ export class Game {
 
   private _stopped = false;
 
+  private _levelCompleted = false;
+
   private _onGameOverCb: () => void;
+
+  private _onLevelUpCb: () => void;
+
+  private _onScoreUpdate: (score: number) => void;
 
   private _onGameWinCb: () => void;
 
@@ -26,10 +38,14 @@ export class Game {
     canvas: HTMLCanvasElement,
     InitialScene: new (game: Game) => AbstractScene,
     onGameOverCallback: () => void,
+    onLevelUpCallback: () => void,
+    onScoreUpdateCallback: (score: number) => void,
     onGameWinCallback: () => void,
     width = 800,
     height = 600,
   ) {
+    EntityService.getInstance().destroyAllEntities();
+
     this._canvas = canvas;
 
     const context = this._canvas.getContext('2d');
@@ -48,6 +64,8 @@ export class Game {
     this.bgSound.play();
 
     this._onGameOverCb = onGameOverCallback;
+    this._onLevelUpCb = onLevelUpCallback;
+    this._onScoreUpdate = onScoreUpdateCallback;
     this._onGameWinCb = onGameWinCallback;
   }
 
@@ -65,11 +83,35 @@ export class Game {
     let dt = 0;
     let now: number;
 
+    let enemiesCount = 3;
+
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const gameEndHandler = () => {
+      this.stop();
+
+      if (this._level === this._maxLevelCount) {
+        this._onGameWinCb();
+      } else {
+        this._onLevelUpCb();
+      }
+    };
+
     const gameLoop = () => {
       if (this._stopped) {
         this._stopped = false;
         this.afterGameHasStopped();
-        return;
+
+        if (!this._levelCompleted || this._level === this._maxLevelCount) {
+          return;
+        }
+
+        this._level += 1;
+        this._levelCompleted = false;
+        this._activeScene.init();
+        this.bgSound.play();
+
+        enemiesCount = 3 + (this._level - 1) * 2;
+        this.gameWinSound.removeEventListener('ended', gameEndHandler);
       }
 
       now = performance.now();
@@ -86,20 +128,28 @@ export class Game {
 
       const entitiesMap = EntityService.getInstance().getEntitiesMap();
 
-      if (!entitiesMap[Entities.PLAYER]) {
+      const player = entitiesMap[Entities.PLAYER];
+      const enemies = entitiesMap[Entities.ENEMY];
+
+      if (!player && !this._levelCompleted) {
         this.stop();
         this.gameOverSound.play();
         this._onGameOverCb();
       }
 
-      if (!entitiesMap[Entities.ENEMY]) {
-        this.bgSound.pause();
-        this.gameWinSound.play();
+      if (enemies?.length !== enemiesCount) {
+        enemiesCount = enemies?.length;
+        this._onScoreUpdate(this._enemyKillScore);
+      }
 
-        this.gameWinSound.addEventListener('ended', () => {
-          this.stop();
-          this._onGameWinCb();
-        });
+      if (!enemies && !this._levelCompleted) {
+        this._levelCompleted = true;
+
+        this.bgSound.pause();
+        this.bgSound.currentTime = 0;
+
+        this.gameWinSound.play();
+        this.gameWinSound.addEventListener('ended', gameEndHandler);
       }
 
       requestAnimationFrame(gameLoop);
@@ -118,15 +168,7 @@ export class Game {
   }
 
   public render(deltaTime: number) {
-    this._activeScene.render(deltaTime, this._context, this._canvas);
-  }
-
-  public setScene<T extends new (game: Game) => R, R extends AbstractScene>(Scene: T) {
-    if (this._activeScene) {
-      this._activeScene.destroy();
-    }
-
-    this._activeScene = new Scene(this);
+    this._activeScene.render(deltaTime, this._context, this._canvas, this._level);
   }
 
   private afterGameHasStopped() {
