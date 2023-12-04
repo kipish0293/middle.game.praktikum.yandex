@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Game, IntroScene } from '@app/engine';
 import { Routes } from '@app/const';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { Game, IntroScene } from '@app/engine';
+import { useAppDispatch } from '@app/hooks';
 import { gameStateActions, scoreActions } from '@app/store';
 import { GameState } from '@app/types';
 
 export function EngineCanvas() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const score = useAppSelector((state) => state.score.score);
 
   const [initialRender, setInitialRender] = useState<boolean>(false);
   const [game, setGame] = useState<Game | undefined>();
