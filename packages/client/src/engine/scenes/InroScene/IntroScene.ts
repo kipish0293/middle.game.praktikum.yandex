@@ -13,13 +13,17 @@ export class IntroScene extends AbstractScene {
   public constructor() {
     super();
 
+    this.onInit();
+  }
+
+  public onInit(): void {
     this.registerEntities({
       type: Entities.PLAYER,
       entity: new Player(),
     });
   }
 
-  private addEnemies() {
+  private addEnemies(level: number) {
     if (!this.canvasSize?.width || !this.canvasSize.height) {
       return;
     }
@@ -27,7 +31,7 @@ export class IntroScene extends AbstractScene {
     const enemyWidth = 40;
     const enemyHeight = 45;
 
-    this.registerEntities(
+    const enemies = [
       {
         type: Entities.ENEMY,
         entity: new Enemy(
@@ -55,7 +59,61 @@ export class IntroScene extends AbstractScene {
           enemyHeight,
         ),
       },
-    );
+    ];
+
+    if (level > 1) {
+      enemies.push(
+        {
+          type: Entities.ENEMY,
+          entity: new Enemy(
+            Directions.LEFT,
+            new Vector(
+              this.canvasSize.width - enemyWidth,
+              this.canvasSize.height / 2 - enemyHeight,
+            ),
+            enemyWidth,
+            enemyHeight,
+          ),
+        },
+        {
+          type: Entities.ENEMY,
+          entity: new Enemy(
+            Directions.UP,
+            new Vector(
+              this.canvasSize.width / 2 - enemyWidth,
+              this.canvasSize.height - enemyHeight,
+            ),
+            enemyWidth,
+            enemyHeight,
+          ),
+        },
+      );
+    }
+
+    if (level > 2) {
+      enemies.push(
+        {
+          type: Entities.ENEMY,
+          entity: new Enemy(
+            Directions.DOWN,
+            new Vector(this.canvasSize.width / 2 - enemyWidth, 1),
+            enemyWidth,
+            enemyHeight,
+          ),
+        },
+        {
+          type: Entities.ENEMY,
+          entity: new Enemy(
+            Directions.RIGHT,
+            new Vector(1, this.canvasSize.height / 2 - enemyHeight),
+            enemyWidth,
+            enemyHeight,
+          ),
+        },
+      );
+    }
+
+    this.registerEntities(...enemies);
   }
 
   private addWalls() {
@@ -70,12 +128,17 @@ export class IntroScene extends AbstractScene {
     this.registerEntities(entity);
   }
 
-  public render(deltaTime: number, context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+  public render(
+    deltaTime: number,
+    context: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    level: number,
+  ) {
     if (!this.canvasSize) {
       this.canvasSize = { width: context.canvas.width, height: context.canvas.height };
 
       this.addWalls();
-      this.addEnemies();
+      this.addEnemies(level);
     }
 
     context.strokeRect(0, 0, canvas.width, canvas.height);
@@ -92,5 +155,7 @@ export class IntroScene extends AbstractScene {
     }
   }
 
-  public onDestroy(): void {}
+  public onDestroy(): void {
+    this.canvasSize = undefined;
+  }
 }
