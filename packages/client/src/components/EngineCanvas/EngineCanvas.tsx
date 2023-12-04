@@ -11,6 +11,8 @@ export function EngineCanvas() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const score = useAppSelector((state) => state.score.score);
+
   const [initialRender, setInitialRender] = useState<boolean>(false);
   const [game, setGame] = useState<Game | undefined>();
 
