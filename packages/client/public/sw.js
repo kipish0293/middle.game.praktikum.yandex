@@ -5,18 +5,24 @@ const urlsForDev = [
   '/',
   '/src/assets/images/avatar.png',
   '/src/assets/images/game_over.png',
-  '/src/assets/images/logo_login.png',
-  '/src/assets/images/logo.png',
+  '/src/assets/images/logo_login.jpg',
+  '/src/assets/images/logo.jpg',
   '/src/assets/images/robot.png',
 ];
 
 const urlsForProd = [
   '/',
   '/src/avatar.png',
+  '/src/brick.svg',
   '/src/game_over.png',
-  '/src/logo_login.png',
-  '/src/logo.png',
+  '/src/logo_login.jpg',
+  '/src/logo.jpg',
   '/src/robot.png',
+  '/sounds/bullet.mp3',
+  '/sounds/enemyDestroy.mp3',
+  '/sounds/game.mp3',
+  '/sounds/gameOver.mp3',
+  '/sounds/gameWin.mp3',
 ];
 
 let URLS;
