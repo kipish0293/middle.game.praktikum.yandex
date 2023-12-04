@@ -45,7 +45,7 @@ export function LoginPage() {
     try {
       await oauthApi.postOauthServiceByCode({
         code: appCode,
-        redirect_uri: `${origin}/signin`,
+        redirect_uri: `${origin}`,
       });
 
       await dispatch(getUser());

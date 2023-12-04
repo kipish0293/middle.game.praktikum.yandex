@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { protectedRoutes, Routes } from '../const/routes';
 
@@ -8,6 +8,8 @@ import { useAppSelector } from './redux';
 export const useProtectedRoute = () => {
   const isLoggedIn = !!useAppSelector((state) => state?.user?.user?.id);
   const location = useLocation();
+  const [searchParameters] = useSearchParams();
+
   const { pathname } = location as { pathname: Routes };
   const redirect = useMemo(
     () => ({
@@ -26,7 +28,9 @@ export const useProtectedRoute = () => {
     redirect.shouldRedirect = true;
   }
   if (redirectToLogin) {
-    redirect.to = Routes.SIGNIN;
+    const code = searchParameters.get('code');
+    const to = code ? `${Routes.SIGNIN}/?code=${code}` : Routes.SIGNIN;
+    redirect.to = to;
     redirect.shouldRedirect = true;
   }
   return { redirect };
